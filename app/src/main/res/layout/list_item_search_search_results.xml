@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textViewSrchResListItmName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name : "
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textViewSrchResListItmMatchSec"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Matches attribute : "
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:inputType="textMultiLine"
+        android:singleLine="false" />
+    <!--android:singleLine Kept for better readability-->
+
+
+</LinearLayout>

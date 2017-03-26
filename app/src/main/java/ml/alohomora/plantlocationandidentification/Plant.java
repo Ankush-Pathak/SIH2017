@@ -1,3 +1,5 @@
+package ml.alohomora.plantlocationandidentification;
+
 /**
  * Created by Ankush on 3/26/2017.
  */
@@ -13,6 +15,8 @@ public class Plant {
     boolean isFullyVerfied;
     String[] commonNames;
 
+    String name;
+    int nameVerificationCount;
     String leafSize;
     int leafSizeVerificationCount;
     String leafShape;
@@ -26,7 +30,7 @@ public class Plant {
     String leafMargins;
     int leafMarginsVerificationCount;
 
-    public Plant(int rejectionCount , double[] locationLat, double[] locationLon, String[] imageLeafRef, String[] imageFlowerRef, String[] imageFruitRef, String uploaderId, boolean isFullyVerfied, String[] commonNames, String leafSize, int leafSizeVerificationCount, String leafShape, int leafShapeVerificationCount, String leafColor, int leafColorVerificationCount, String fuitShape, int fruitShapeVerificationCount, String fruitColor, int fuitColorVerificationCouunt, String leafMargins, int leafMarginsVerificationCount) {
+    public Plant(int rejectionCount, double[] locationLat, double[] locationLon, String[] imageLeafRef, String[] imageFlowerRef, String[] imageFruitRef, String uploaderId, boolean isFullyVerfied, String[] commonNames, String name, int nameVerificationCount, String leafSize, int leafSizeVerificationCount, String leafShape, int leafShapeVerificationCount, String leafColor, int leafColorVerificationCount, String fuitShape, int fruitShapeVerificationCount, String fruitColor, int fuitColorVerificationCouunt, String leafMargins, int leafMarginsVerificationCount) {
         this.rejectionCount = rejectionCount;
         this.locationLat = locationLat;
         this.locationLon = locationLon;
@@ -36,6 +40,8 @@ public class Plant {
         this.uploaderId = uploaderId;
         this.isFullyVerfied = isFullyVerfied;
         this.commonNames = commonNames;
+        this.name = name;
+        this.nameVerificationCount = nameVerificationCount;
         this.leafSize = leafSize;
         this.leafSizeVerificationCount = leafSizeVerificationCount;
         this.leafShape = leafShape;
@@ -48,6 +54,22 @@ public class Plant {
         this.fuitColorVerificationCouunt = fuitColorVerificationCouunt;
         this.leafMargins = leafMargins;
         this.leafMarginsVerificationCount = leafMarginsVerificationCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getNameVerificationCount() {
+        return nameVerificationCount;
+    }
+
+    public void setNameVerificationCount(int nameVerificationCount) {
+        this.nameVerificationCount = nameVerificationCount;
     }
 
     public Plant() {
