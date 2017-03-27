@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     void setUpObjects()
     {
         buttonMenuSearchPlnt = (Button)findViewById(R.id.buttonMenuSearchPlnt);
-        firebaseDatabaseSync = FirebaseDatabase.getInstance();
+        //firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
     }
