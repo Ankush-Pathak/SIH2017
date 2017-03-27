@@ -1,3 +1,53 @@
 <resources>
     <string name="app_name">Plant location and identification</string>
+    <string-array name="leaf_shape">
+        <item>Chordate</item>
+        <item>Elliptic</item>
+        <item>Lanceolate</item>
+        <item>Oblanceolate</item>
+        <item>Oblong</item>
+        <item>Ovate</item>
+        <item>Reniform</item>
+        <item>Spatulate</item>
+
+    </string-array>
+    <string-array name="leaf_margins">
+        <item>Entire</item>
+        <item>Crenate</item>
+        <item>Surrate</item>
+        <item>Dentate</item>
+        <item>Undulate</item>
+        <item>Lobed</item>
+        <item>Pinnately lobed</item>
+        <item>Pamlately lobed</item>
+
+    </string-array>
+    <string-array name="leaf_tip">
+        <item>Acute</item>
+        <item>Acuminate</item>
+        <item>Obtuse</item>
+    </string-array>
+    <string-array name="leaf_base">
+        <item>Acute</item>
+        <item>Auriculate</item>
+        <item>Cordate</item>
+        <item>Obtuse</item>
+
+    </string-array>
+    <string-array name="leaf_size">
+        <item>Palm sized</item>
+        <item>A4 paper sized</item>
+        <item>Thumb sized</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="leaf_color">
+        <item>Light green</item>
+        <item>Dark green</item>
+        <item>Green</item>
+        <item>Yellow</item>
+        <item>Magenta</item>
+        <item>Blue</item>
+        <item>Other</item>
+
+    </string-array>
 </resources>

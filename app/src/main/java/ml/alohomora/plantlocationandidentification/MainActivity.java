@@ -11,7 +11,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonMenuSearchPlnt;
+    Button buttonMenuSearchPlnt,buttonAddToDatabase;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
     @Override
@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     void setUpObjects()
     {
         buttonMenuSearchPlnt = (Button)findViewById(R.id.buttonMenuSearchPlnt);
-        //firebaseDatabaseSync = FirebaseDatabase.getInstance();
+        buttonAddToDatabase = (Button) findViewById(R.id.buttonMenuAddNewPlntTDb);
+        firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
     }
@@ -36,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonAddToDatabase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
                 startActivity(intent);
                 finish();
             }

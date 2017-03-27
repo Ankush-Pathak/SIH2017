@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp"
+    android:layout_marginTop="10dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context="ml.alohomora.plantlocationandidentification.AddToDatabaseActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageViewAddAddedImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                app:srcCompat="@color/common_google_signin_btn_text_dark_disabled" />
+
+            <Button
+                android:id="@+id/buttonAddLeafImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add leaf image" />
+
+            <EditText
+                android:id="@+id/editTextAddBioName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:hint="Biological name"
+                android:inputType="textPersonName"
+                android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Size"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_size" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafShape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Shape"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafShape"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_shape" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafMargins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Margins"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafMargins"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_margins" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafTip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Tip"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafTip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_tip" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Base"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_base" />
+
+            <TextView
+                android:id="@+id/textViewAddLeafColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginTop="5dp"
+                android:text="Leaf Color"
+                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textSize="22sp" />
+
+            <Spinner
+                android:id="@+id/spinnerAddLeafColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="0dp"
+                android:entries="@array/leaf_color" />
+
+            <EditText
+                android:id="@+id/editTextAddFruitColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Fruit Color"
+                android:inputType="textPersonName"
+                android:textSize="22sp" />
+
+            <EditText
+                android:id="@+id/editTextAddCommonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:ems="10"
+                android:hint="Common name"
+                android:inputType="textPersonName"
+                android:textSize="22sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewAddIsFruitBearing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Is fruitbearing ?(Yes/No)"
+                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textSize="22sp" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxAddIsFruitBearing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonAddSubmit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Submit" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>
