@@ -23,14 +23,76 @@ public class Plant {
     int leafShapeVerificationCount;
     String leafColor;
     int leafColorVerificationCount;
-    String fuitShape;
+    String fruitShape;
     int fruitShapeVerificationCount;
     String fruitColor;
-    int fuitColorVerificationCouunt;
+    int fruitColorVerificationCouunt;
     String leafMargins;
     int leafMarginsVerificationCount;
+    boolean isFruitBearing;
+    int isFruitBearingVerificationCount;
+    String leafTip;
+    int leafTipVerificationCount;
+    String leafBase;
+    int leafBaseVerificationCount;
 
-    public Plant(int rejectionCount, double[] locationLat, double[] locationLon, String[] imageLeafRef, String[] imageFlowerRef, String[] imageFruitRef, String uploaderId, boolean isFullyVerfied, String[] commonNames, String name, int nameVerificationCount, String leafSize, int leafSizeVerificationCount, String leafShape, int leafShapeVerificationCount, String leafColor, int leafColorVerificationCount, String fuitShape, int fruitShapeVerificationCount, String fruitColor, int fuitColorVerificationCouunt, String leafMargins, int leafMarginsVerificationCount) {
+    public String getFruitShape() {
+        return fruitShape;
+    }
+
+    public void setFruitColorVerificationCouunt(int fruitColorVerificationCouunt) {
+        this.fruitColorVerificationCouunt = fruitColorVerificationCouunt;
+    }
+
+    public boolean isFruitBearing() {
+        return isFruitBearing;
+    }
+
+    public void setFruitBearing(boolean fruitBearing) {
+        isFruitBearing = fruitBearing;
+    }
+
+    public int getIsFruitBearingVerificationCount() {
+        return isFruitBearingVerificationCount;
+    }
+
+    public void setIsFruitBearingVerificationCount(int isFruitBearingVerificationCount) {
+        this.isFruitBearingVerificationCount = isFruitBearingVerificationCount;
+    }
+
+    public String getLeafTip() {
+        return leafTip;
+    }
+
+    public void setLeafTip(String leafTip) {
+        this.leafTip = leafTip;
+    }
+
+    public int getLeafTipVerificationCount() {
+        return leafTipVerificationCount;
+    }
+
+    public void setLeafTipVerificationCount(int leafTipVerificationCount) {
+        this.leafTipVerificationCount = leafTipVerificationCount;
+    }
+
+    public String getLeafBase() {
+        return leafBase;
+    }
+
+    public void setLeafBase(String leafBase) {
+        this.leafBase = leafBase;
+    }
+
+    public int getLeafBaseVerificationCount() {
+        return leafBaseVerificationCount;
+    }
+
+    public void setLeafBaseVerificationCount(int leafBaseVerificationCount) {
+        this.leafBaseVerificationCount = leafBaseVerificationCount;
+    }
+
+    public Plant(int rejectionCount, double[] locationLat, double[] locationLon, String[] imageLeafRef, String[] imageFlowerRef, String[] imageFruitRef, String uploaderId, boolean isFullyVerfied, String[] commonNames, String name, int nameVerificationCount, String leafSize, int leafSizeVerificationCount, String leafShape, int leafShapeVerificationCount, String leafColor, int leafColorVerificationCount, String fruitShape, int fruitShapeVerificationCount, String fruitColor, int fruitColorVerificationCouunt, String leafMargins, int leafMarginsVerificationCount, boolean isFruitBearing, int isFruitBearingVerificationCount, String leafTip, int leafTipVerificationCount, String leafBase, int leafBaseVerificationCount) {
         this.rejectionCount = rejectionCount;
         this.locationLat = locationLat;
         this.locationLon = locationLon;
@@ -48,13 +110,21 @@ public class Plant {
         this.leafShapeVerificationCount = leafShapeVerificationCount;
         this.leafColor = leafColor;
         this.leafColorVerificationCount = leafColorVerificationCount;
-        this.fuitShape = fuitShape;
+        this.fruitShape = fruitShape;
         this.fruitShapeVerificationCount = fruitShapeVerificationCount;
         this.fruitColor = fruitColor;
-        this.fuitColorVerificationCouunt = fuitColorVerificationCouunt;
+        this.fruitColorVerificationCouunt = fruitColorVerificationCouunt;
         this.leafMargins = leafMargins;
         this.leafMarginsVerificationCount = leafMarginsVerificationCount;
+        this.isFruitBearing = isFruitBearing;
+        this.isFruitBearingVerificationCount = isFruitBearingVerificationCount;
+        this.leafTip = leafTip;
+        this.leafTipVerificationCount = leafTipVerificationCount;
+        this.leafBase = leafBase;
+        this.leafBaseVerificationCount = leafBaseVerificationCount;
     }
+
+
 
     public String getName() {
         return name;
@@ -73,6 +143,35 @@ public class Plant {
     }
 
     public Plant() {
+        this.rejectionCount = 0;
+        this.locationLat = null;
+        this.locationLon = null;
+        this.imageLeafRef = null;
+        this.imageFlowerRef = null;
+        this.imageFruitRef = null;
+        this.uploaderId = null;
+        this.isFullyVerfied = false;
+        this.commonNames = null;
+        this.name = null;
+        this.nameVerificationCount = 0;
+        this.leafSize = null;
+        this.leafSizeVerificationCount = 0;
+        this.leafShape = null;
+        this.leafShapeVerificationCount = 0;
+        this.leafColor = null;
+        this.leafColorVerificationCount = 0;
+        this.fruitColor = null;
+        this.fruitShapeVerificationCount = 0;
+        this.fruitColor = null;
+        this.fruitColorVerificationCouunt = 0;
+        this.leafMargins = null;
+        this.leafMarginsVerificationCount = 0;
+        isFruitBearing = false;
+        isFruitBearingVerificationCount = 0;
+        leafTip = null;
+        leafTipVerificationCount = 0;
+        leafBase = null;
+        leafBaseVerificationCount = 0;
     }
 
     public int getRejectionCount() {
@@ -196,11 +295,11 @@ public class Plant {
     }
 
     public String getFuitShape() {
-        return fuitShape;
+        return fruitShape;
     }
 
-    public void setFuitShape(String fuitShape) {
-        this.fuitShape = fuitShape;
+    public void setFruitShape(String fuitShape) {
+        this.fruitShape = fuitShape;
     }
 
     public int getFruitShapeVerificationCount() {
@@ -219,12 +318,12 @@ public class Plant {
         this.fruitColor = fruitColor;
     }
 
-    public int getFuitColorVerificationCouunt() {
-        return fuitColorVerificationCouunt;
+    public int getFruitColorVerificationCouunt() {
+        return fruitColorVerificationCouunt;
     }
 
     public void setFuitColorVerificationCouunt(int fuitColorVerificationCouunt) {
-        this.fuitColorVerificationCouunt = fuitColorVerificationCouunt;
+        this.fruitColorVerificationCouunt = fuitColorVerificationCouunt;
     }
 
     public String getLeafMargins() {
