@@ -3,7 +3,6 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
-    //buildToolsVersion "23.0.3" --older version
     defaultConfig {
         applicationId "ml.alohomora.plantlocationandidentification"
         minSdkVersion 15
@@ -25,8 +24,12 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    //compile 'com.google.firebase:firebase-database:10.0.1'
+    //compile 'com.google.firebase:firebase-storage:10.0.1'
+    //compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'com.android.support:appcompat-v7:25.3.0'
-    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
@@ -36,4 +39,8 @@ dependencies {
 
 
 
-//apply plugin: 'com.google.gms.google-services'
+
+
+
+
+apply plugin: 'com.google.gms.google-services'

@@ -1,0 +1,340 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:isScrollContainer="true"
+    android:weightSum="1"
+    tools:context="ml.alohomora.plantlocationandidentification.VerifyActivity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewVerifyReject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="If the image is incorrect, you can reject the whole submission" />
+
+                <Button
+                    android:id="@+id/buttonVerifyReject"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:text="Reject" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/Verify"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextVerifyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Name"
+
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVerifyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" />
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyCommonName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Common name" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextVerifyCommonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Common Name"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVerifyCommonName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" />
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafColour"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Colour" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextVerifyLeafColour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:hint="Leaf Colour"
+                android:inputType="textPersonName"
+                android:text="" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVerifyLeafColour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" />
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafSize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Size" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextVerifyLeafSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Leaf Size" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVerifyLeafSize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" />
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyFruitBearing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fruit Bearing" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/editTextVerifyFruitBearing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="Fruit Bearing" />
+
+            <CheckBox
+                android:id="@+id/checkBoxVerifyFruitBearing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:layoutDirection="rtl" />
+
+        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafTip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Tip" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.00"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafTip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right|center"
+                    android:layoutDirection="rtl" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafBase"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Leaf Base" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1"
+                    />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafBase"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:gravity="right"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafMargins"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Margins" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafMargins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafMargins"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layoutDirection="rtl" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyFruitColour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fruit Colour" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerVerifyFruitColour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyFruititColour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layoutDirection="rtl" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textViewVerifyLeafShape"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Leaf Shape" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafShape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".1" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafShape"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:layoutDirection="rtl" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+
+
