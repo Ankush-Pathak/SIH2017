@@ -37,7 +37,6 @@ public class SearchActivity extends AppCompatActivity {
         databaseReferenceRetrieveAllData = firebaseDatabaseRetrieveAllData.getReference().child("plant");
         listViewSrchRes = (ListView)findViewById(R.id.listViewSearchSrchResults);
         arrayListPlantFromDb = new ArrayList<>();
-        retreieveFbData();
         editTextSrchTxtSrch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -48,7 +47,7 @@ public class SearchActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(count > 1) {
                     searchString = s.toString();
-                    updateArrayAdapter(searchString);
+                    retrieveFbData(searchString);
                 }
             }
 
@@ -59,12 +58,12 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    void retreieveFbData()
+    void retrieveFbData(String s)
     {
         databaseReferenceRetrieveAllData.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                    addToPlantArrayList(dataSnapshot);
+                    addToPlantArrayList(dataSnapshot,s);
             }
 
             @Override
@@ -89,9 +88,10 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    void addToPlantArrayList(DataSnapshot dataSnapshot)
+    void addToPlantArrayList(DataSnapshot dataSnapshot,String s)
     {
         arrayListPlantFromDb.add(dataSnapshot.getValue(Plant.class));
+        updateArrayAdapter(s);
     }
     void updateArrayAdapter(String s)
     {
