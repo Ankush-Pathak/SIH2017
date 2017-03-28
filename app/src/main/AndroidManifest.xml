@@ -22,6 +22,7 @@
         </activity>
         <activity android:name=".SearchActivity" />
         <activity android:name=".AddToDatabaseActivity"></activity>
+
     </application>
 
 </manifest>
