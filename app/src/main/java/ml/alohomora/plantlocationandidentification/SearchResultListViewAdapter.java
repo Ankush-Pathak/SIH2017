@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,54 +21,55 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
     LayoutInflater inflater;
     ArrayList<String> matchingSections;
     String searchString;
-    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant)
+    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections)
     {
-        super(context,0);
+        super(context,0,arrayListPlant);
         this.context = context;
         this.arrayListPlant = arrayListPlant;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        matchingSections = new ArrayList<>();
+        this.matchingSections = new ArrayList<>();
         this.searchString = searchString;
+        Log.d("SearchAdapter","Adapter constructed");
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        Log.d("SearchAdapter","Trying to get view");
         Plant plant = getItem(position);
         View listItem = inflater.inflate(R.layout.list_item_search_search_results,null,true);
         TextView textViewSrchResName, textViewSrchResMatchingSection;
         textViewSrchResName = (TextView)listItem.findViewById(R.id.textViewSrchResListItmName);
         textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
         textViewSrchResName.append(" " + plant.getName());
-
         //If some attribute value matches the search string display it else, remove it from the list
-        if(!searchAttrAndAddToMtchSection(plant))
-        {
-            listItem.setVisibility(View.GONE);
-            listItem.getLayoutParams().height = 0;
-        }
+        constructMatchingSection(plant);
         textViewSrchResMatchingSection.append(" " + convertListToString(matchingSections));
         return listItem;
     }
     String convertListToString(List<String> list)
     {
-        String s = null;
-        s = list.get(0);
+        String s = "";
+        if (list.size() > 0) {
+            s = list.get(0);
 
-        for(int i = 1;i < list.size();i++)
-        {
-            s = s + ", " + list.get(i);
+            for(int i = 1;i < list.size();i++)
+            {
+                s = s + ", " + list.get(i);
+            }
         }
         return s;
     }
-    boolean searchAttrAndAddToMtchSection(Plant plant)
+    boolean constructMatchingSection(Plant plant)
     {
-        //This flag will be true if atleast one attribute value matches search string, else false
         boolean flag = false;
-
+        matchingSections.clear();
+        Log.d("SearchAdapter","Search String : " + searchString);
+        Log.d("SearchAdapter", plant.getName() + " contains : " + searchString + " : " + plant.getName().contains(searchString));
         if(plant.getName().contains(searchString))
         {
             matchingSections.add("Name");
+            flag = true;
         }
         for(String s : plant.getCommonNames())
         {
@@ -114,13 +116,10 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             matchingSections.add("Leaf shape");
             flag = true;
         }
-        for (String s : plant.getCommonNames())
-        {
-            if(s.contains(searchString)) {
-                flag = true;
-                matchingSections.add("Common name");
-            }
-        }
+
+        Log.d("SearchAdapter","flag : " + flag);
+        Log.d("SearchAdapter","MatchingSections : " + matchingSections.toString());
         return flag;
     }
+
 }
