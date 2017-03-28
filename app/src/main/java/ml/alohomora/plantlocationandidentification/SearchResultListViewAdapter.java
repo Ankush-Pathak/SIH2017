@@ -71,6 +71,13 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             matchingSections.add("Name");
             flag = true;
         }
+
+
+        if (plant.getFruitColor().contains(searchString))
+        {
+            matchingSections.add("Fruit color");
+            flag = true;
+        }
         for(String s : plant.getCommonNames())
         {
             if(s.contains(searchString))
@@ -79,12 +86,6 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         if(flag == true)
         {
             matchingSections.add("Common name");
-        }
-
-        if (plant.getFruitColor().contains(searchString))
-        {
-            matchingSections.add("Fruit color");
-            flag = true;
         }
 
         if (plant.getFruitShape().contains(searchString))
