@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "819220975325",
+    "firebase_url": "https://sih2017-2f66c.firebaseio.com",
+    "project_id": "sih2017-2f66c",
+    "storage_bucket": "sih2017-2f66c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:819220975325:android:3854ad19b3822343",
+        "android_client_info": {
+          "package_name": "ml.alohomora.plantlocationandidentification"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "819220975325-tgpqnbpjvsnr6qaimakmodhf6197s9ea.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.alohomora.plantlocationandidentification",
+            "certificate_hash": "3d1ee7812801ff516b42411f148b5e11e330ad65"
+          }
+        },
+        {
+          "client_id": "819220975325-psshbmjoahraavc9n6108274midsgtut.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJvpR0uQulcYUqAIBJYXJKP7ECvKfBBPk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "819220975325-psshbmjoahraavc9n6108274midsgtut.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
