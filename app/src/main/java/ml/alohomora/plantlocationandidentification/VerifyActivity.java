@@ -114,6 +114,12 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
                 case R.id.editTextVerifyCommonName :
                     String editTextVerifyCommonNameText = editTextVerifyCommonName.getText().toString();
                     String plantObjCommonNameText[] = plantObj.getCommonNames();
+                    // Pending code
+                    break;
+
+
+                case R.id.editTextVerifyFruitBearing
+
             }
         }
 
