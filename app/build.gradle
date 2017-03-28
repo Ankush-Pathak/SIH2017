@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.1"
+    //buildToolsVersion "23.0.3" --older version
     defaultConfig {
         applicationId "ml.alohomora.plantlocationandidentification"
         minSdkVersion 15
@@ -35,4 +36,4 @@ dependencies {
 
 
 
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'
