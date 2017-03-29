@@ -17,7 +17,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonMenuSearchPlnt,buttonAddToDatabase;
+    Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuPlotPlantsSpottedNearby;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
     @Override
@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     {
         buttonMenuSearchPlnt = (Button)findViewById(R.id.buttonMenuSearchPlnt);
         buttonAddToDatabase = (Button) findViewById(R.id.buttonMenuAddNewPlntTDb);
+        buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
@@ -57,6 +58,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        buttonMenuPlotPlantsSpottedNearby.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this , PlotPlantsSpottedNearby.class);
                 startActivity(intent);
                 finish();
             }

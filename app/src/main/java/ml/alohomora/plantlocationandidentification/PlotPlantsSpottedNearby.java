@@ -1,0 +1,212 @@
+package ml.alohomora.plantlocationandidentification;
+
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.Circle;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
+public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
+    private GoogleMap mMap;
+    TrackGPS gps;
+    ArrayList<Plant> arrayListPlant;
+    private DatabaseReference firebaseDatabase;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_plot_plants_spotted_nearby);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+        arrayListPlant = new ArrayList<>();
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("plant");
+
+        final Double locationLat , lcationLon;
+
+        firebaseDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                    arrayListPlant.add(child.getValue(Plant.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+
+
+
+
+    @Override
+        public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        gps = new TrackGPS(PlotPlantsSpottedNearby.this);
+
+
+        double latitudes[] = new double[arrayListPlant.size()];
+        double longitudes[] = new double[arrayListPlant.size()];
+
+        Iterator<Plant> iteratePlant =  arrayListPlant.iterator();
+        int i=0;
+
+        while (iteratePlant.hasNext()){
+            Plant p = iteratePlant.next();
+
+            latitudes[i] = Double.parseDouble(String.valueOf(p.locationLat));
+            longitudes[i] = Double.parseDouble(String.valueOf(p.locationLon));
+
+        }
+
+
+        int height=60;
+        int width=60;
+
+        BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
+        Bitmap b = bitmapDrawable.getBitmap();
+        Bitmap sM = Bitmap.createScaledBitmap(b,width,height,false);
+
+
+
+
+        double myLatitude = gps.getLatitude();
+        double myLongitude = gps.getLongitude();
+
+        double resultLatLon[] = new double[latitudes.length];
+
+        for(i=0;i<latitudes.length;i++) {
+            resultLatLon[i] = distance(myLatitude, myLongitude, latitudes[i], longitudes[i]);
+
+            if(resultLatLon[i]<=500)
+            {
+
+
+                // Add a marker in Sydney and move the camera
+                if(gps.canGetLocation()){
+
+
+
+                    LatLng plantlocation = new LatLng(latitudes[i],longitudes[i]);
+                    mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("Marker for plant"));
+                    mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
+                }
+                else
+                {
+
+                    gps.showSettingsAlert();
+                }
+            }
+
+        }
+
+
+        // Add a marker in myLatLan and move the camera
+        if(gps.canGetLocation()){
+
+
+
+            LatLng myLatLan = new LatLng(gps.getLatitude(),gps.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(myLatitude + ", " + myLongitude));
+            mMap.addCircle(new CircleOptions().center(myLatLan).radius(500).strokeColor(Color.BLUE).strokeWidth(5).fillColor(0x5500ff00));
+            float zoomLevel = 16.0f;
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLan));
+
+
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLan , zoomLevel));
+
+
+        }
+        else
+        {
+
+            gps.showSettingsAlert();
+        }
+
+    }
+
+    private double distance(double myLatitude, double myLongitude, double latitude, double longitude) {
+        double earthRadius = 6371000; //meters
+        double dLat = Math.toRadians(latitude-myLatitude);
+        double dLng = Math.toRadians(longitude-myLongitude);
+        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(Math.toRadians(myLatitude)) * Math.cos(Math.toRadians(latitude)) *
+                        Math.sin(dLng/2) * Math.sin(dLng/2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+        float distance = (float) (earthRadius * c);
+
+
+
+
+
+        return (distance);
+    }
+
+    private double rad2deg(double rad) {
+        return (rad*180.0/Math.PI);
+    }
+
+    private double deg2rad(double deg) {
+        return (deg*Math.PI/180.0);
+    }
+
+
+    @Override
+    public void onConnected(@Nullable Bundle bundle) {
+
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+}
+
