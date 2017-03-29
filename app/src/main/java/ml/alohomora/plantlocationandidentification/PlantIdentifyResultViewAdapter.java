@@ -1,11 +1,13 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -35,15 +37,25 @@ public class PlantIdentifyResultViewAdapter extends ArrayAdapter<Plant> {
     public View getView(int position, View convertView, ViewGroup parent)
     {
         Log.d("SearchAdapter","Trying to get view");
-        Plant plant = getItem(position);
+        final Plant plant = getItem(position);
         View listItem = inflater.inflate(R.layout.list_item_search_search_results,null,true);
         TextView textViewSrchResName, textViewSrchResMatchingSection;
+        Button buttonView;
         textViewSrchResName = (TextView)listItem.findViewById(R.id.textViewSrchResListItmName);
         //textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
         textViewSrchResName.append(" " + plant.getName());
         //If some attribute value matches the search string display it else, remove it from the list
         constructMatchingSection(plant);
         //textViewSrchResMatchingSection.append(" " + convertListToString(matchingSections));
+        buttonView = (Button)listItem.findViewById(R.id.buttonSrchResListView);
+        buttonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ShowPlantActivity.class);
+                intent.putExtra("plant",plant);
+                context.startActivity(intent);
+            }
+        });
         return listItem;
     }
     String convertListToString(List<String> list)

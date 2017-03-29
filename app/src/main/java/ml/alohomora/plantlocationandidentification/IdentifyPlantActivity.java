@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.annotation.IdRes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.widget.Button;
@@ -30,7 +31,7 @@ public class IdentifyPlantActivity extends AppCompatActivity {
     LinkedList<String> attribute;
     ArrayList<Plant> plant;
     ArrayList<Plant> unmatchedPlant;
-    ArrayList<String> idList;
+
     int counterMax = 6;
 
     FirebaseDatabase firebaseDatabaseSync;
@@ -41,9 +42,7 @@ public class IdentifyPlantActivity extends AppCompatActivity {
         databaseReferencePlant = firebaseDatabaseSync.getReference().child("plant");
         databaseReferenceId = firebaseDatabaseSync.getReference();
 
-        idList = new ArrayList<>();
         plant = new ArrayList();
-        unmatchedPlant = new ArrayList();
         attribute = new LinkedList();
 
         databaseReferencePlant.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -51,8 +50,117 @@ public class IdentifyPlantActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot ds:dataSnapshot.getChildren()){
                     plant.add(ds.getValue(Plant.class));
-                    idList.add(ds.getKey());
                 }
+                    Log.d("debug","Plant size : " + plant.size());
+                leafShapeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("shape"))
+                            attribute.add("shape");
+                        int radioId = leafShapeGroup.getCheckedRadioButtonId();
+                        leafShapeButton = (RadioButton) findViewById(radioId);
+                        String userShape = leafShapeButton.getText().toString().toLowerCase();
+                        Log.d("debug",userShape);
+                        linearLayoutLeafShape.setVisibility(View.GONE);
+                        linearLayoutLeafMargin.setVisibility(View.VISIBLE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userShape, plant,unmatchedPlant,attribute));
+
+                        check(plant,attribute);
+
+                    }
+                });
+
+                leafMarginGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("margin"))
+                            attribute.add("margin");
+                        int radioIdMargin = leafMarginGroup.getCheckedRadioButtonId();
+                        leafMarginButton = (RadioButton) findViewById(radioIdMargin);
+                        String userMargin = leafMarginButton.getText().toString().toLowerCase();
+                        Log.d("debug","Usermargin : " + userMargin);
+                        linearLayoutLeafMargin.setVisibility(View.GONE);
+                        linearLayoutLeafTip.setVisibility(View.VISIBLE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userMargin, plant,unmatchedPlant,attribute));
+
+                        check(plant,attribute);
+                    }
+                });
+                leafTipGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("tip"))
+                            attribute.add("tip");
+
+                        int radioId = leafTipGroup.getCheckedRadioButtonId();
+                        leafTipButton = (RadioButton) findViewById(radioId);
+                        String userTip = leafTipButton.getText().toString().toLowerCase();
+
+                        linearLayoutLeafTip.setVisibility(View.GONE);
+                        linearLayoutLeafBase.setVisibility(View.VISIBLE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userTip, plant,unmatchedPlant,attribute));
+
+                        check(plant,attribute);
+                    }
+                });
+
+                leafBaseGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("base"))
+                            attribute.add("base");
+
+                        int radioId = leafBaseGroup.getCheckedRadioButtonId();
+                        leafBaseButton = (RadioButton) findViewById(radioId);
+                        String userBase = leafBaseButton.getText().toString().toLowerCase();
+
+                        linearLayoutLeafBase.setVisibility(View.GONE);
+                        linearLayoutLeafSize.setVisibility(View.VISIBLE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userBase, plant,unmatchedPlant,attribute));
+
+                        check(plant,attribute);
+                    }
+                });
+
+                leafSizeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("size"))
+                            attribute.add("size");
+
+                        int radioId = leafSizeGroup.getCheckedRadioButtonId();
+                        leafSizeButton = (RadioButton) findViewById(radioId);
+                        String userSize = leafSizeButton.getText().toString().toLowerCase();
+
+                        linearLayoutLeafSize.setVisibility(View.GONE);
+                        linearLayoutLeafColor.setVisibility(View.VISIBLE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userSize, plant,unmatchedPlant,attribute));
+
+                        check(plant,attribute);
+                    }
+                });
+                leafColorGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                        if(!attribute.contains("color"))
+                            attribute.add("color");
+
+                        int radioId = leafColorGroup.getCheckedRadioButtonId();
+                        leafColorButton = (RadioButton) findViewById(radioId);
+                        String userColor = leafColorButton.getText().toString().toLowerCase();
+
+                        linearLayoutLeafColor.setVisibility(View.GONE);
+                        unmatchedPlant = new ArrayList();
+                        plant.removeAll(search(userColor, plant,unmatchedPlant,attribute));
+                        check(plant,attribute);
+                    }
+                });
+
             }
 
             @Override
@@ -129,159 +237,57 @@ public class IdentifyPlantActivity extends AppCompatActivity {
         *   5.Size
         *   6.Color
         * */
-        leafShapeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("shape"))
-                    attribute.add("shape");
-                int radioId = leafShapeGroup.getCheckedRadioButtonId();
-                leafShapeButton = (RadioButton) findViewById(radioId);
-                String userShape = leafShapeButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafShape.setVisibility(View.GONE);
-                linearLayoutLeafMargin.setVisibility(View.VISIBLE);
-
-                plant.removeAll(search(userShape, plant,unmatchedPlant,attribute));
-
-                check(plant,attribute);
-
-            }
-        });
-
-        leafMarginGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("margin"))
-                    attribute.add("margin");
-                int radioIdMargin = leafMarginGroup.getCheckedRadioButtonId();
-                leafMarginButton = (RadioButton) findViewById(radioIdMargin);
-                String userMargin = leafMarginButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafMargin.setVisibility(View.GONE);
-                linearLayoutLeafTip.setVisibility(View.VISIBLE);
-
-                plant.removeAll(search(userMargin, plant,unmatchedPlant,attribute));
-
-                check(plant,attribute);
-            }
-        });
-        leafTipGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("tip"))
-                    attribute.add("tip");
-
-                int radioId = leafTipGroup.getCheckedRadioButtonId();
-                leafTipButton = (RadioButton) findViewById(radioId);
-                String userTip = leafTipButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafTip.setVisibility(View.GONE);
-                linearLayoutLeafBase.setVisibility(View.VISIBLE);
-
-                plant.removeAll(search(userTip, plant,unmatchedPlant,attribute));
-
-                check(plant,attribute);
-            }
-        });
-
-        leafBaseGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("base"))
-                    attribute.add("base");
-
-                int radioId = leafBaseGroup.getCheckedRadioButtonId();
-                leafBaseButton = (RadioButton) findViewById(radioId);
-                String userBase = leafBaseButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafBase.setVisibility(View.GONE);
-                linearLayoutLeafSize.setVisibility(View.VISIBLE);
-
-                plant.removeAll(search(userBase, plant,unmatchedPlant,attribute));
-
-                check(plant,attribute);
-            }
-        });
-
-        leafSizeGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("size"))
-                    attribute.add("size");
-
-                int radioId = leafSizeGroup.getCheckedRadioButtonId();
-                leafSizeButton = (RadioButton) findViewById(radioId);
-                String userSize = leafSizeButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafSize.setVisibility(View.GONE);
-                linearLayoutLeafColor.setVisibility(View.VISIBLE);
-
-                plant.removeAll(search(userSize, plant,unmatchedPlant,attribute));
-
-                check(plant,attribute);
-            }
-        });
-        leafColorGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                if(!attribute.contains("color"))
-                    attribute.add("color");
-
-                int radioId = leafColorGroup.getCheckedRadioButtonId();
-                leafColorButton = (RadioButton) findViewById(radioId);
-                String userColor = leafColorButton.getText().toString().toLowerCase();
-
-                linearLayoutLeafColor.setVisibility(View.GONE);
-                plant.removeAll(search(userColor, plant,unmatchedPlant,attribute));
-                check(plant,attribute);
-            }
-        });
-
     }
     ArrayList<Plant> search(String userSearch,ArrayList<Plant> dataPlant,ArrayList<Plant> unmatchedPlant  ,LinkedList<String> attribute) {
         if(attribute.getLast().equals("shape")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafShape().equals(userSearch)) {
+                if (!p.getLeafShape().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
                 }
+                Log.d("debug",p.getLeafShape() + " and " + userSearch);
             }
+            Log.d("debug","Unmatched size : "+unmatchedPlant.size());
         }
         else if(attribute.getLast().equals("margin")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafShape().equals(userSearch)) {
+                if (!p.getLeafMargins().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
+                    Log.d("debug","Adding this to unmatched : " + p.getLeafShape());
                 }
             }
+            Log.d("debug","Unmatched size : "+unmatchedPlant.size());
         }
         else if(attribute.getLast().equals("color")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafShape().equals(userSearch)) {
+                if (!p.getLeafColor().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
                 }
             }
+            Log.d("debug","Unmatched size : "+unmatchedPlant.size());
         }
 
         else if(attribute.getLast().equals("tip")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafTip().equals(userSearch)) {
+                if (!p.getLeafTip().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
                 }
             }
         }
         else if(attribute.getLast().equals("base")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafBase().equals(userSearch)) {
+                if (!p.getLeafBase().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
                 }
             }
         }
         else if(attribute.getLast().equals("size")) {
             for (Plant p : dataPlant) {
-                if (!p.getLeafSize().equals(userSearch)) {
+                if (!p.getLeafSize().toLowerCase().equals(userSearch)) {
                     unmatchedPlant.add(p);
                 }
             }
         }
+        Log.d("debug","Unmatched size : "+unmatchedPlant.size());
         return unmatchedPlant;
     }
 }
