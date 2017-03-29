@@ -35,8 +35,8 @@
             android:launchMode="singleTask" />
         <activity android:name=".ShowPlantActivity" />
         <activity android:name=".IdentifyPlantActivity" />
-        <activity android:name=".ResultListActivity" />
-        <activity android:name=".VefifyEntries"></activity>
+        <activity android:name=".PlantIdentifyResultListActivity" />
+        <activity android:name=".VerifyEntriesActivity"></activity>
     </application>
 
 </manifest>

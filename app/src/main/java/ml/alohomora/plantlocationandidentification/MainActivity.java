@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        /*
         buttonMenuShowNearbyPlants.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
                 finish();
             }
         });
+        */
         buttonMenuIdentifyPlnt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
