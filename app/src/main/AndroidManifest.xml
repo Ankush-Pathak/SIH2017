@@ -33,7 +33,10 @@
         <activity
             android:name=".AddToDatabaseActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ShowPlantActivity"></activity>
+        <activity android:name=".ShowPlantActivity" />
+        <activity android:name=".IdentifyPlantActivity" />
+        <activity android:name=".ResultListActivity" />
+        <activity android:name=".VefifyEntries"></activity>
     </application>
 
 </manifest>

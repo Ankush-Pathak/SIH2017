@@ -1,0 +1,85 @@
+package ml.alohomora.plantlocationandidentification;
+
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
+public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEntriesListAdapter.ListItemClickListner{
+
+    VerifyEntriesListAdapter verifyListAdapter;
+    RecyclerView mNumberList;
+    FirebaseDatabase firebaseDatabaseSync;
+    DatabaseReference databaseReferencePlant,databaseReferenceId;
+    ArrayList<Plant> plant;
+    ArrayList<String> idList;
+    Context context;
+    void setup() {
+        plant = new ArrayList<>();
+        idList = new ArrayList<>();
+
+        firebaseDatabaseSync = FirebaseDatabase.getInstance();
+        databaseReferencePlant = firebaseDatabaseSync.getReference().child("plant");
+        databaseReferenceId = firebaseDatabaseSync.getReference();
+        databaseReferencePlant.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    plant.add(ds.getValue(Plant.class));
+                    idList.add(ds.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        ArrayList<Plant> plantVerified = new ArrayList<>();
+        for (int i = 0; i < plant.size(); i++) {
+            if (plant.get(i).isFullyVerfied()) {
+                plant.remove(i);
+                idList.remove(i);
+            }
+        }
+    }
+            @Override
+            protected void onCreate (Bundle savedInstanceState){
+                super.onCreate(savedInstanceState);
+                //Create object in setup functions
+                setup();
+                setContentView(R.layout.activity_verify_entries);
+
+                mNumberList = (RecyclerView) findViewById(R.id.recyclerViewList);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+                mNumberList.setLayoutManager(layoutManager);
+                mNumberList.setHasFixedSize(true);
+
+                verifyListAdapter = new VerifyEntriesListAdapter(VerifyEntriesActivity.this,plant.size(),this, plant);
+                mNumberList.setAdapter(verifyListAdapter);
+            }
+
+            @Override
+            public void onListItemClick ( int onListItemClickId){
+//        Toast toast = Toast.makeText(this,plant.get(onListItemClickId).getLeafColor(),Toast.LENGTH_SHORT);
+//        toast.show();
+
+                Intent intent = new Intent(this, VerifyActivity.class);
+                Plant p = plant.get(onListItemClickId);
+                String id = idList.get(onListItemClickId);
+                intent.putExtra("plant", p);
+                intent.putExtra("id",id);
+                startActivity(intent);
+            }
+}
