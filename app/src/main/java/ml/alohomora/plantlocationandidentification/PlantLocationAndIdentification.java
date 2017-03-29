@@ -1,3 +1,5 @@
+package ml.alohomora.plantlocationandidentification;
+
 import android.app.Application;
 
 import com.google.firebase.database.FirebaseDatabase;
