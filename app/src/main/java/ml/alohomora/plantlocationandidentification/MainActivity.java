@@ -17,7 +17,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonMenuSearchPlnt,buttonAddToDatabase;
+    Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuIdentifyPlnt,buttonMenuGeotag,buttonMenuVerifyEntries,buttonMenuShowNearbyPlants;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
     @Override
@@ -38,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
     {
         buttonMenuSearchPlnt = (Button)findViewById(R.id.buttonMenuSearchPlnt);
         buttonAddToDatabase = (Button) findViewById(R.id.buttonMenuAddNewPlntTDb);
+        buttonMenuIdentifyPlnt = (Button) findViewById(R.id.buttonMenuIdentifyPlnt);
+        buttonMenuGeotag = (Button) findViewById(R.id.buttonMenuGeotag);
+        buttonMenuShowNearbyPlants = (Button) findViewById(R.id.buttonMenuShowNearbyPlants);
+        buttonMenuVerifyEntries = (Button) findViewById(R.id.buttonMenuVerifyEntries);
+
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
@@ -57,6 +62,38 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonMenuShowNearbyPlants.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,ShowNearbyActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonMenuGeotag.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,GeoTagActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonMenuIdentifyPlnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,IdentifyPlantActivity.class);
                 startActivity(intent);
                 finish();
             }
