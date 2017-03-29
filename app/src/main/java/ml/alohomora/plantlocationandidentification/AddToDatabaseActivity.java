@@ -114,92 +114,99 @@ public class AddToDatabaseActivity extends AppCompatActivity {
 
     void extractDataAndAddToDatabase()
     {
-        final Plant plant = new Plant();
-        plant.setComments(editTextAddComments.getText().toString());
-        plant.setCommentsVerficationCount(0);
 
-        List<String> list = plant.getCommonNames();
-        list.add(editTextAddCommonName.getText().toString());
-        plant.setCommonNames(list);
-        plant.setCommentsVerficationCount(0);
+        if (editTextAddComments.getText().length() > 1 && editTextAddCommonName.getText().length() > 1 && editTextAddFruitColor.getText().length() > 1 && editTextAddBioName.getText().length() > 1 && imageBitmap != null) {
+            final Plant plant = new Plant();
+            plant.setComments(editTextAddComments.getText().toString());
+            plant.setCommentsVerficationCount(0);
 
-        plant.setFruitBearing(checkBoxIsFruitBearing.isChecked());
-        plant.setIsFruitBearingVerificationCount(0);
+            List<String> list = plant.getCommonNames();
+            list.add(editTextAddCommonName.getText().toString());
+            plant.setCommonNames(list);
+            plant.setCommentsVerficationCount(0);
 
-        plant.setFruitColor(editTextAddFruitColor.getText().toString());
-        plant.setFruitColorVerificationCount(0);
+            plant.setFruitBearing(checkBoxIsFruitBearing.isChecked());
+            plant.setIsFruitBearingVerificationCount(0);
 
-        plant.setFruitShape("NA");
-        plant.setFruitShapeVerificationCount(0);
+            plant.setFruitColor(editTextAddFruitColor.getText().toString());
+            plant.setFruitColorVerificationCount(0);
 
-        plant.setFullyVerfied(false);
+            plant.setFruitShape("NA");
+            plant.setFruitShapeVerificationCount(0);
 
-        plant.setLeafBase(spinnerAddLeafBase.getSelectedItem().toString());
-        plant.setLeafBaseVerificationCount(0);
+            plant.setFullyVerfied(false);
 
-        plant.setLeafColor(spinnerAddLeafColor.getSelectedItem().toString());
-        plant.setLeafColorVerificationCount(0);
+            plant.setLeafBase(spinnerAddLeafBase.getSelectedItem().toString());
+            plant.setLeafBaseVerificationCount(0);
 
-        plant.setLeafMargins(spinnerAddLeafMargins.getSelectedItem().toString());
-        plant.setLeafMarginsVerificationCount(0);
+            plant.setLeafColor(spinnerAddLeafColor.getSelectedItem().toString());
+            plant.setLeafColorVerificationCount(0);
 
-        plant.setLeafShape(spinnerAddLeafShape.getSelectedItem().toString());
-        plant.setLeafShapeVerificationCount(0);
+            plant.setLeafMargins(spinnerAddLeafMargins.getSelectedItem().toString());
+            plant.setLeafMarginsVerificationCount(0);
 
-        plant.setLeafSize(spinnerAddLeafSize.getSelectedItem().toString());
-        plant.setLeafSizeVerificationCount(0);
+            plant.setLeafShape(spinnerAddLeafShape.getSelectedItem().toString());
+            plant.setLeafShapeVerificationCount(0);
 
-        plant.setLeafTip(spinnerAddLeafTip.getSelectedItem().toString());
-        plant.setLeafTipVerificationCount(0);
+            plant.setLeafSize(spinnerAddLeafSize.getSelectedItem().toString());
+            plant.setLeafSizeVerificationCount(0);
 
-        plant.setName(editTextAddBioName.getText().toString());
-        plant.setNameVerificationCount(0);
+            plant.setLeafTip(spinnerAddLeafTip.getSelectedItem().toString());
+            plant.setLeafTipVerificationCount(0);
 
-        plant.setRejectionCount(0);
-        plant.setUploaderId("ANONYMOUS");
+            plant.setName(editTextAddBioName.getText().toString());
+            plant.setNameVerificationCount(0);
+
+            plant.setRejectionCount(0);
+            plant.setUploaderId("ANONYMOUS");
 
 
-        storageReferenceUploadImage = storageReferenceUploadImage.child(imageName);
-        Log.d("Upload path : ",storageReferenceUploadImage.getPath());
-        LocationProvider locationProvider = new LocationProvider(AddToDatabaseActivity.this);
-        if(locationProvider.canGetLocation())
-        {
-            double lat = locationProvider.getLatitude();
-            double lon = locationProvider.getLongitude();
-            List<Double> latL = plant.getLocationLat();
-            latL.add(lat);
-            List<Double> lonL = plant.getLocationLon();
-            lonL.add(lon);
+            storageReferenceUploadImage = storageReferenceUploadImage.child(imageName);
+            Log.d("Upload path : ",storageReferenceUploadImage.getPath());
+            LocationProvider locationProvider = new LocationProvider(AddToDatabaseActivity.this);
+            if(locationProvider.canGetLocation())
+            {
+                double lat = locationProvider.getLatitude();
+                double lon = locationProvider.getLongitude();
+                List<Double> latL = plant.getLocationLat();
+                latL.add(lat);
+                List<Double> lonL = plant.getLocationLon();
+                lonL.add(lon);
 
-            plant.setLocationLat(latL);
-            plant.setLocationLon(lonL);
+                plant.setLocationLat(latL);
+                plant.setLocationLon(lonL);
+            }
+
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
+            byte[] data = baos.toByteArray();
+
+            UploadTask uploadTask = storageReferenceUploadImage.putBytes(data);
+            uploadTask.addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception exception) {
+                    // Handle unsuccessful uploads
+                    Toast.makeText(AddToDatabaseActivity.this,"Image upload failed try again!",Toast.LENGTH_LONG).show();
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
+                    @SuppressWarnings("VisibleForTests") String ref = taskSnapshot.getDownloadUrl().toString();
+                    List<String> list = plant.getImageLeafRef();
+                    list.add(ref);
+                    plant.setImageLeafRef(list);
+                    Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
+                    databaseReferenceUploadData.push().setValue(plant);
+                    finish();
+                    Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());
+                }
+            });
         }
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
-        byte[] data = baos.toByteArray();
-
-        UploadTask uploadTask = storageReferenceUploadImage.putBytes(data);
-        uploadTask.addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-                Toast.makeText(AddToDatabaseActivity.this,"Image upload failed try again!",Toast.LENGTH_LONG).show();
-            }
-        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
-                @SuppressWarnings("VisibleForTests") String ref = taskSnapshot.getDownloadUrl().toString();
-                List<String> list = plant.getImageLeafRef();
-                list.add(ref);
-                plant.setImageLeafRef(list);
-                Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
-                databaseReferenceUploadData.push().setValue(plant);
-                finish();
-                Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());
-            }
-        });
+        else
+        {
+            Toast.makeText(AddToDatabaseActivity.this,"Incorrect values in field(s).",Toast.LENGTH_SHORT).show();
+        }
 
     }
 
