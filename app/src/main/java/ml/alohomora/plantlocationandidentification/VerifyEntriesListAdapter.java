@@ -45,8 +45,8 @@ public class VerifyEntriesListAdapter extends RecyclerView.Adapter<VerifyEntries
         View view = inflater.inflate(layoutIdForListItem, viewGroup, shouldAttachToParentImmediately);
         NumberViewHolder viewHolder = new NumberViewHolder(view);
 
-        viewHolder.textViewVerifyListName.setText("Plant Name :" + plant.get(viewHolderCount).getName());
-        Glide.with(context).load(plant.get(viewHolderCount).getImageLeafRef()).into(viewHolder.imageViewVerifyListImage);
+        viewHolder.textViewVerifyListName.setText("Plant name : " + plant.get(viewHolderCount).getName());
+        Glide.with(context).load(plant.get(viewHolderCount).getImageLeafRef().get(0)).into(viewHolder.imageViewVerifyListImage);
         viewHolderCount++;
         return viewHolder;
     }
@@ -74,8 +74,8 @@ public class VerifyEntriesListAdapter extends RecyclerView.Adapter<VerifyEntries
 
         void bind(int listIndex) {
 
-            Glide.with(context).load(plant.get(listIndex).getImageLeafRef()).into(imageViewVerifyListImage);
-            textViewVerifyListName.setText("Plant Name " + plant.get(listIndex).getLeafMargins());
+            Glide.with(context).load(plant.get(listIndex).getImageLeafRef().get(0)).into(imageViewVerifyListImage);
+            textViewVerifyListName.setText("Plant name : " + plant.get(listIndex).getName());
         }
 
         @Override

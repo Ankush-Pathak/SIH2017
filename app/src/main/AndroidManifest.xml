@@ -23,20 +23,24 @@
             android:value="AIzaSyA9I9R6rj1WgOIKeZSOTHWngF_zz1CAw5o" />
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".SearchActivity" />
         <activity
             android:name=".AddToDatabaseActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ShowPlantActivity" />
+
         <activity android:name=".IdentifyPlantActivity" />
+        <activity android:name=".ShowPlantActivity" />
         <activity android:name=".PlantIdentifyResultListActivity" />
         <activity android:name=".VerifyEntriesActivity"></activity>
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SignupActivity"></activity>
     </application>
 
 </manifest>
