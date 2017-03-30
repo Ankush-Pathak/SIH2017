@@ -85,7 +85,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             flag = true;
         }
 
-        if (plant.getFuitShape().contains(searchString))
+        if (plant.getFruitShape().contains(searchString))
         {
             matchingSections.add("Fruit shape");
             flag = true;
@@ -113,6 +113,13 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         {
             matchingSections.add("Leaf shape");
             flag = true;
+        }
+        for (String s : plant.getCommonNames())
+        {
+            if(s.contains(searchString)) {
+                flag = true;
+                matchingSections.add("Common name");
+            }
         }
         return flag;
     }

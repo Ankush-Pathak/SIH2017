@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                 />
+                android:maxHeight="500dp" />
 
             <Button
                 android:id="@+id/buttonAddLeafImage"
@@ -195,6 +195,14 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextAddComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter more relevant info here"
+                android:inputType="textMultiLine" />
 
             <Button
                 android:id="@+id/buttonAddSubmit"
