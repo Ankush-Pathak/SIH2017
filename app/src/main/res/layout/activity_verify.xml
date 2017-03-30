@@ -29,13 +29,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="If the image is incorrect, you can reject the whole submission." />
+                    android:text="If the image is incorrect, you can reject the whole submission."
+                    android:textColor="#000000" />
 
                 <Button
                     android:id="@+id/buttonVerifyReject"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textColor="#000000"
                     android:text="Reject" />
 
             </LinearLayout>
@@ -44,67 +46,72 @@
                 android:id="@+id/Verify"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000000"
                 android:text="Name" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextVerifyName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:ems="10"
-                android:hint="Name"
+                android:orientation="horizontal">
 
-                android:inputType="textPersonName"
-                android:text="" />
+                <EditText
+                    android:id="@+id/editTextVerifyName"
+                    android:layout_width="match_parent"
+                    android:textColor="#000000"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:ems="10"
+                    android:hint="Name"
 
-            <CheckBox
-                android:id="@+id/checkBoxVerifyName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:layoutDirection="rtl" />
-        </LinearLayout>
+                    android:inputType="textPersonName"
+                    android:text="" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl" />
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/textViewVerifyCommonName"
                 android:layout_width="wrap_content"
+                android:textColor="#000000"
                 android:layout_height="wrap_content"
                 android:text="Common name" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-                android:id="@+id/editTextVerifyCommonName"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.1"
-                android:ems="10"
-                android:hint="Common Name"
-                android:inputType="textPersonName"
-                android:text="" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkBoxVerifyCommonName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:layoutDirection="rtl" />
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/editTextVerifyCommonName"
+                    android:layout_width="match_parent"
+                    android:textColor="#000000"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.1"
+                    android:ems="10"
+                    android:hint="Common Name"
+                    android:inputType="textMultiLine"
+                    android:text="" />
+
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyCommonName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl" />
+            </LinearLayout>
 
 
             <TextView
                 android:id="@+id/textViewVerifyFruitBearing"
                 android:layout_width="wrap_content"
+                android:textColor="#000000"
                 android:layout_height="wrap_content"
                 android:text="Fruit Bearing" />
 
@@ -118,9 +125,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight=".1"
+                    android:textColor="#000000"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:hint="Fruit Bearing" />
+                    android:hint="Fruit Bearing"
+                    android:inputType="textPersonName" />
 
                 <CheckBox
                     android:id="@+id/checkBoxVerifyFruitBearing"
@@ -136,66 +144,70 @@
             <TextView
                 android:id="@+id/textViewVerifyLeafColour"
                 android:layout_width="wrap_content"
+                android:textColor="#000000"
                 android:layout_height="wrap_content"
                 android:text="Leaf Colour" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/spinnerVerifyLeafColour"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/leaf_color"
-                android:layout_weight="0.1" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkBoxVerifyLeafColour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:layoutDirection="rtl" />
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafColour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:layout_weight="0.1"
+                    android:entries="@array/leaf_color" />
 
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafColour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl" />
+
+            </LinearLayout>
 
 
             <TextView
                 android:id="@+id/textViewVerifyLeafSize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000000"
                 android:text="Leaf Size" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Spinner
-                android:id="@+id/spinnerVerifyLeafSize"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/leaf_size"
-                android:layout_weight=".1" />
+                android:orientation="horizontal">
 
-            <CheckBox
-                android:id="@+id/checkBoxVerifyLeafSize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_weight="1"
-                android:layoutDirection="rtl" />
+                <Spinner
+                    android:id="@+id/spinnerVerifyLeafSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:layout_weight=".1"
+                    android:entries="@array/leaf_size" />
 
-        </LinearLayout>
+                <CheckBox
+                    android:id="@+id/checkBoxVerifyLeafSize"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_weight="1"
+                    android:layoutDirection="rtl" />
 
+            </LinearLayout>
 
 
             <TextView
                 android:id="@+id/textViewVerifyLeafTip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000000"
                 android:text="Leaf Tip" />
 
             <LinearLayout
@@ -207,9 +219,10 @@
                 <Spinner
                     android:id="@+id/spinnerVerifyLeafTip"
                     android:layout_width="match_parent"
-                    android:entries="@array/leaf_tip"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".1" />
+                    android:textColor="#000000"
+                    android:layout_weight=".1"
+                    android:entries="@array/leaf_tip" />
 
                 <CheckBox
                     android:id="@+id/checkBoxVerifyLeafTip"
@@ -225,6 +238,7 @@
             <TextView
                 android:id="@+id/textViewVerifyLeafBase"
                 android:layout_width="match_parent"
+                android:textColor="#000000"
                 android:layout_height="wrap_content"
                 android:text="Leaf Base" />
 
@@ -236,18 +250,18 @@
                 <Spinner
                     android:id="@+id/spinnerVerifyLeafBase"
                     android:layout_width="match_parent"
-                    android:entries="@array/leaf_base"
                     android:layout_height="wrap_content"
+                    android:textColor="#000000"
                     android:layout_weight=".1"
-                    />
+                    android:entries="@array/leaf_base" />
 
                 <CheckBox
                     android:id="@+id/checkBoxVerifyLeafBase"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:gravity="right"
                     android:layout_weight="1"
+                    android:gravity="right"
                     android:layoutDirection="rtl" />
             </LinearLayout>
 
@@ -255,6 +269,7 @@
                 android:id="@+id/textViewVerifyLeafMargins"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="#000000"
                 android:text="Leaf Margins" />
 
             <LinearLayout
@@ -265,9 +280,10 @@
                 <Spinner
                     android:id="@+id/spinnerVerifyLeafMargins"
                     android:layout_width="match_parent"
-                    android:entries="@array/leaf_margins"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".1" />
+                    android:layout_weight=".1"
+                    android:textColor="#000000"
+                    android:entries="@array/leaf_margins" />
 
                 <CheckBox
                     android:id="@+id/checkBoxVerifyLeafMargins"
@@ -285,6 +301,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:text="Fruit Colour" />
 
             <LinearLayout
@@ -295,7 +312,7 @@
                 <Spinner
                     android:id="@+id/spinnerVerifyFruitColour"
                     android:layout_width="match_parent"
-
+                    android:textColor="#000000"
                     android:layout_height="wrap_content"
                     android:layout_weight=".1" />
 
@@ -314,6 +331,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="#000000"
                 android:text="Leaf Shape" />
 
             <LinearLayout
@@ -325,8 +343,9 @@
                     android:id="@+id/spinnerVerifyLeafShape"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColor="#000000"
                     android:layout_weight=".1"
-                    android:entries="@array/leaf_shape"/>
+                    android:entries="@array/leaf_shape" />
 
                 <CheckBox
                     android:id="@+id/checkBoxVerifyLeafShape"
@@ -336,6 +355,52 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:layoutDirection="rtl" />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textViewVerifyComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:textColor="#000000"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextVerifyComments"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:textColor="#000000"
+                    android:hint="Add a Comment"
+                    android:inputType="textPersonName" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/buttonVerifyCancelChanges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:text="Cancel Changes" />
+
+                <Button
+                    android:id="@+id/buttonVerifySubmitChanges"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#000000"
+                    android:text="Submit Verification" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
