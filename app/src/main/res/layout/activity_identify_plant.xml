@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:abdroid="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:padding="5dp"
+        tools:context="ml.alohomora.qanda.IdentifyPlant">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/linearLayoutLeafShape">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Shape"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafShapeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafShapeChordate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp"
+                    android:text="Chordate" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeElliptic"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Elliptic"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeLanceolate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Lanceolate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeOblanceolate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Oblanceolate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeOblong"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Oblong"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafShapeOvate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Ovate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeReniform"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Reniform"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafShapeSpatulate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Spatulate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutLeafMargin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Margin"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafMarginGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafMarginEntire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Entire"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafMarginSurrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Surrate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafMarginCrenate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Crenate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafMarginDentate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Dentate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafMarginUndulate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Undulate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafMarginLobed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Lobed"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafMarginPinnatelyLobed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Pinnately Lobed"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafMarginPamlatelyLobed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Pamlately Lobed"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutLeafTip"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Tip"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafTipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafTipAcute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Acute"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafTipAcuminate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Acuminate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafTipObtuse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Obtuse"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutLeafBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Base"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafBaseGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafBaseAcute"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Acute"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafBaseAuriculate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Auriculate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafBaseCordate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Cordate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafBaseObtuse"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Obtuse"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutLeafSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Size"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafSizeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafSizePalm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Palm sized"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafSizeA4Paper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="A4 paper sized"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafSizeThumb"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Thumb sized"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafSizeOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Other"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+            </RadioGroup>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayoutLeafColor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leaf Colour"
+                android:textSize="30sp" />
+
+            <RadioGroup
+                android:id="@+id/leafColorGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="15dp">
+
+                <RadioButton
+                    android:id="@+id/leafColorLightGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Light green"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafColorDarkGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Dark green"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafColorGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Green"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafColorYellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Yellow"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafColorMagenta"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Magenta"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
+                    android:id="@+id/leafColorBlue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Blue"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+                <RadioButton
+                    android:id="@+id/leafColorOther"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Other"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+            </RadioGroup>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

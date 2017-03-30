@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,16 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Ankush on 3/26/2017.
+ * Created by Chandan Singh on 29-Mar-17.
  */
-
-public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
+public class PlantIdentifyResultViewAdapter extends ArrayAdapter<Plant> {
     Context context;
     ArrayList<Plant> arrayListPlant;
     LayoutInflater inflater;
     ArrayList<String> matchingSections;
     String searchString;
-    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections)
+    public PlantIdentifyResultViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant, ArrayList<String> matchingSections)
     {
         super(context,0,arrayListPlant);
         this.context = context;
@@ -34,10 +32,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         this.searchString = searchString;
         Log.d("SearchAdapter","Adapter constructed");
     }
-    @Override
-    public Plant getItem(int position) {
-        return arrayListPlant.get(position);
-    }
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
@@ -47,12 +42,12 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         TextView textViewSrchResName, textViewSrchResMatchingSection;
         Button buttonView;
         textViewSrchResName = (TextView)listItem.findViewById(R.id.textViewSrchResListItmName);
-        textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
-        buttonView = (Button)listItem.findViewById(R.id.buttonSrchResListView);
+        //textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
         textViewSrchResName.append(" " + plant.getName());
         //If some attribute value matches the search string display it else, remove it from the list
         constructMatchingSection(plant);
-        textViewSrchResMatchingSection.append(" " + convertListToString(matchingSections));
+        //textViewSrchResMatchingSection.append(" " + convertListToString(matchingSections));
+        buttonView = (Button)listItem.findViewById(R.id.buttonSrchResListView);
         buttonView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,21 +77,21 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         matchingSections.clear();
         Log.d("SearchAdapter","Search String : " + searchString);
         Log.d("SearchAdapter", plant.getName() + " contains : " + searchString + " : " + plant.getName().contains(searchString));
-        if(plant.getName().toLowerCase().contains(searchString.toLowerCase()))
+        if(plant.getName().contains(searchString))
         {
             matchingSections.add("Name");
             flag = true;
         }
 
 
-        if (plant.getFruitColor().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getFruitColor().contains(searchString))
         {
             matchingSections.add("Fruit color");
             flag = true;
         }
         for(String s : plant.getCommonNames())
         {
-            if(s.toLowerCase().contains(searchString.toLowerCase()))
+            if(s.contains(searchString))
                 flag = true;
         }
         if(flag == true)
@@ -104,31 +99,31 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             matchingSections.add("Common name");
         }
 
-        if (plant.getFruitShape().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getFruitShape().contains(searchString))
         {
             matchingSections.add("Fruit shape");
             flag = true;
         }
 
-        if (plant.getLeafColor().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getLeafColor().contains(searchString))
         {
             matchingSections.add("Leaf color");
             flag = true;
         }
 
-        if (plant.getLeafMargins().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getLeafMargins().contains(searchString))
         {
             matchingSections.add("Leaf margin type");
             flag = true;
         }
 
-        if (plant.getLeafSize().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getLeafSize().contains(searchString))
         {
             matchingSections.add("Leaf size");
             flag = true;
         }
 
-        if (plant.getLeafShape().toLowerCase().contains(searchString.toLowerCase()))
+        if (plant.getLeafShape().contains(searchString))
         {
             matchingSections.add("Leaf shape");
             flag = true;
@@ -139,5 +134,5 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         return flag;
     }
 
-
 }
+
