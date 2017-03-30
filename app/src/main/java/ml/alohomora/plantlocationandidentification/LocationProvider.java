@@ -166,7 +166,7 @@ public class LocationProvider extends Service implements LocationListener {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 mContext.startActivity(intent);
 
-                Toast.makeText(getApplicationContext(), "Please restart App", Toast.LENGTH_LONG);
+              //  Toast.makeText(getApplicationContext(), "Please restart App", Toast.LENGTH_LONG);
                 //TrackGPS.this.finish();
 
 
