@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "819220975325-ajl73537glfbubomt6j6jqvp6novnnva.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.alohomora.plantlocationandidentification",
+            "certificate_hash": "12cfedbc80380c2679fd1d9f2823c7436ce0352d"
+          }
+        },
+        {
           "client_id": "819220975325-mej7j80vikl83g0pn5c84rvathld4isp.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
