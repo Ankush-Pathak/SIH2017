@@ -52,4 +52,5 @@
         <item>Other</item>
 
     </string-array>
+    <string name="title_activity_plot_plants_spotted_nearby">Map</string>
 </resources>

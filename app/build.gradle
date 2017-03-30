@@ -20,7 +20,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -28,19 +28,25 @@ dependencies {
     //compile 'com.google.firebase:firebase-database:10.0.1'
     //compile 'com.google.firebase:firebase-storage:10.0.1'
     //compile 'com.google.firebase:firebase-auth:10.0.1'
+    //This is a custom library that allows setting fonts globally for the entire app
+    compile project(':calligraphy-2.2.0')
     compile 'com.android.support:appcompat-v7:25.3.0'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.firebase:firebase-database:10.0.1'
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
+    compile 'uk.co.chrisjenx:calligraphy:2.2.0'
+    compile 'com.google.android.gms:play-services-maps:10.0.1' // changed by Akshay at 11.35, 29/3/17
     testCompile 'junit:junit:4.12'
+
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
 }
 
+//apply plugin: 'com.google.gms.google-services'
 
-
-
-
-
+//apply plugin: 'com.google.gms.google-services'
 
 
 //apply plugin: 'com.google.gms.google-services'

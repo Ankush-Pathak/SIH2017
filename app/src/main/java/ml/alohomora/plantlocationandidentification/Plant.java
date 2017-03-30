@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +8,7 @@ import java.util.List;
  * Created by Ankush on 3/26/2017.
  */
 
-public class Plant {
+public class Plant implements Serializable{
     int rejectionCount;
     List<Double> locationLat;
     List<Double> locationLon;

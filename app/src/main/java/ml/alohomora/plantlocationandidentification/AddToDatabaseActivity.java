@@ -2,8 +2,10 @@ package ml.alohomora.plantlocationandidentification;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.hardware.Camera;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.List;
@@ -41,6 +45,7 @@ public class AddToDatabaseActivity extends AppCompatActivity {
     DatabaseReference databaseReferenceUploadData;
     StorageReference storageReferenceUploadImage;
     Bitmap imageBitmap;
+    String imageName,imagePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +76,29 @@ public class AddToDatabaseActivity extends AppCompatActivity {
         buttonAddLeafImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(takePictureIntent, 1);
+                try {
+                    imageName = String.valueOf(System.currentTimeMillis()) + ".jpeg";
+                    File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) ,"Plant_Id");
+                    file.mkdirs();
+                    //file.mkdirs();
+                    File file2 = new File(file.getPath() + File.separator + imageName);
+                    Log.d("File",file2.getName() + " " + file2.getAbsolutePath());
+                    if(file2.exists() || file2.isDirectory())
+                        Log.d("File", "File exists");
+                    Uri uri = Uri.fromFile(file2);
+                    if(uri == null)
+                        Log.d("File","Uri null");
+                    else
+                        Log.d("File","Uri : " + uri.toString());
+                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                        startActivityForResult(takePictureIntent, 100);
+                        imagePath = file2.getPath();
+                        Log.d("Leaving control","Leaving control");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }
@@ -89,7 +114,6 @@ public class AddToDatabaseActivity extends AppCompatActivity {
 
     void extractDataAndAddToDatabase()
     {
-        final String imageName;
         final Plant plant = new Plant();
         plant.setComments(editTextAddComments.getText().toString());
         plant.setCommentsVerficationCount(0);
@@ -133,7 +157,8 @@ public class AddToDatabaseActivity extends AppCompatActivity {
 
         plant.setRejectionCount(0);
         plant.setUploaderId("ANONYMOUS");
-        imageName = String.valueOf(System.currentTimeMillis()) + ".png";
+
+
         storageReferenceUploadImage = storageReferenceUploadImage.child(imageName);
         Log.d("Upload path : ",storageReferenceUploadImage.getPath());
         LocationProvider locationProvider = new LocationProvider(AddToDatabaseActivity.this);
@@ -151,7 +176,7 @@ public class AddToDatabaseActivity extends AppCompatActivity {
         }
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        imageBitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
+        imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = storageReferenceUploadImage.putBytes(data);
@@ -170,21 +195,34 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 list.add(ref);
                 plant.setImageLeafRef(list);
                 Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
+                databaseReferenceUploadData.push().setValue(plant);
                 finish();
+                Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());
             }
         });
-        databaseReferenceUploadData.push().setValue(plant);
+
     }
 
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1 && resultCode == RESULT_OK) {
-            Bundle extras = data.getExtras();
-            imageBitmap = (Bitmap) extras.get("data");
-            imageViewAddImage.setDrawingCacheEnabled(true);
-            imageViewAddImage.setImageBitmap(imageBitmap);
-            Log.d("Bitmap", imageBitmap.getHeight() + " " + imageBitmap.getWidth());
+
+        Log.d("Result", "ReqCode : " + requestCode + " Res Code : " + resultCode);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            //Uri uri = data.getData();
+            try {
+                File file = new File(imagePath);
+                Uri uri = Uri.fromFile(file);
+                imageBitmap = BitmapFactory.decodeStream(AddToDatabaseActivity.this.getContentResolver().openInputStream(uri),null,null);
+                Log.d("Image",imageBitmap.getHeight() + " " + imageBitmap.getWidth());
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap,1600,1200,false);
+                Log.d("Image",imageBitmap.getHeight() + " " + imageBitmap.getWidth());
+                imageViewAddImage.setImageBitmap(imageBitmap);
+
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
         }
     }
 }
