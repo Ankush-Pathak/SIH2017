@@ -1,10 +1,14 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -20,58 +24,79 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
     LayoutInflater inflater;
     ArrayList<String> matchingSections;
     String searchString;
-    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant)
+    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections)
     {
-        super(context,0);
+        super(context,0,arrayListPlant);
         this.context = context;
         this.arrayListPlant = arrayListPlant;
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        matchingSections = new ArrayList<>();
+        this.matchingSections = new ArrayList<>();
         this.searchString = searchString;
+        Log.d("SearchAdapter","Adapter constructed");
     }
-
+    @Override
+    public Plant getItem(int position) {
+        return arrayListPlant.get(position);
+    }
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        Plant plant = getItem(position);
+        Log.d("SearchAdapter","Trying to get view");
+        final Plant plant = getItem(position);
         View listItem = inflater.inflate(R.layout.list_item_search_search_results,null,true);
         TextView textViewSrchResName, textViewSrchResMatchingSection;
+        Button buttonView;
         textViewSrchResName = (TextView)listItem.findViewById(R.id.textViewSrchResListItmName);
         textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
+        buttonView = (Button)listItem.findViewById(R.id.buttonSrchResListView);
         textViewSrchResName.append(" " + plant.getName());
-
         //If some attribute value matches the search string display it else, remove it from the list
-        if(!searchAttrAndAddToMtchSection(plant))
-        {
-            listItem.setVisibility(View.GONE);
-            listItem.getLayoutParams().height = 0;
-        }
+        constructMatchingSection(plant);
         textViewSrchResMatchingSection.append(" " + convertListToString(matchingSections));
+        buttonView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,ShowPlantActivity.class);
+                intent.putExtra("plant",plant);
+                context.startActivity(intent);
+            }
+        });
         return listItem;
     }
     String convertListToString(List<String> list)
     {
-        String s = null;
-        s = list.get(0);
+        String s = "";
+        if (list.size() > 0) {
+            s = list.get(0);
 
-        for(int i = 1;i < list.size();i++)
-        {
-            s = s + ", " + list.get(i);
+            for(int i = 1;i < list.size();i++)
+            {
+                s = s + ", " + list.get(i);
+            }
         }
         return s;
     }
-    boolean searchAttrAndAddToMtchSection(Plant plant)
+    boolean constructMatchingSection(Plant plant)
     {
-        //This flag will be true if atleast one attribute value matches search string, else false
         boolean flag = false;
-
-        if(plant.getName().contains(searchString))
+        matchingSections.clear();
+        Log.d("SearchAdapter","Search String : " + searchString);
+        Log.d("SearchAdapter", plant.getName() + " contains : " + searchString + " : " + plant.getName().contains(searchString));
+        if(plant.getName().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Name");
+            flag = true;
+        }
+
+
+        if (plant.getFruitColor().toLowerCase().contains(searchString.toLowerCase()))
+        {
+            matchingSections.add("Fruit color");
+            flag = true;
         }
         for(String s : plant.getCommonNames())
         {
-            if(s.contains(searchString))
+            if(s.toLowerCase().contains(searchString.toLowerCase()))
                 flag = true;
         }
         if(flag == true)
@@ -79,41 +104,40 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             matchingSections.add("Common name");
         }
 
-        if (plant.getFruitColor().contains(searchString))
-        {
-            matchingSections.add("Fruit color");
-            flag = true;
-        }
-
-        if (plant.getFuitShape().contains(searchString))
+        if (plant.getFruitShape().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Fruit shape");
             flag = true;
         }
 
-        if (plant.getLeafColor().contains(searchString))
+        if (plant.getLeafColor().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Leaf color");
             flag = true;
         }
 
-        if (plant.getLeafMargins().contains(searchString))
+        if (plant.getLeafMargins().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Leaf margin type");
             flag = true;
         }
 
-        if (plant.getLeafSize().contains(searchString))
+        if (plant.getLeafSize().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Leaf size");
             flag = true;
         }
 
-        if (plant.getLeafShape().contains(searchString))
+        if (plant.getLeafShape().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSections.add("Leaf shape");
             flag = true;
         }
+
+        Log.d("SearchAdapter","flag : " + flag);
+        Log.d("SearchAdapter","MatchingSections : " + matchingSections.toString());
         return flag;
     }
+
+
 }

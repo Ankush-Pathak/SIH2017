@@ -62,7 +62,7 @@ public class VerifyActivity extends AppCompatActivity {
     }
 
 
-       @Override
+
         public void onCheckedChanged(View v)
     {
         switch (v.getId())
@@ -81,7 +81,7 @@ public class VerifyActivity extends AppCompatActivity {
                 }
         }
     }
-    }
+
 
 
     void rejectEntireSubmission()

@@ -24,7 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
-                app:srcCompat="@color/common_google_signin_btn_text_dark_disabled" />
+                android:maxHeight="500dp" />
 
             <Button
                 android:id="@+id/buttonAddLeafImage"
@@ -49,7 +49,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Size"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -67,7 +67,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Shape"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -85,7 +85,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Margins"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -103,7 +103,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Tip"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -121,7 +121,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Base"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -139,7 +139,7 @@
                 android:layout_marginBottom="2dp"
                 android:layout_marginTop="5dp"
                 android:text="Leaf Color"
-                android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                android:textColor="#000000"
                 android:textSize="22sp" />
 
             <Spinner
@@ -185,7 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Is fruitbearing ?(Yes/No)"
-                    android:textColor="@color/common_google_signin_btn_text_dark_focused"
+                    android:textColor="#000000"
                     android:textSize="22sp" />
 
                 <CheckBox
@@ -195,6 +195,14 @@
                     android:layout_weight="1" />
 
             </LinearLayout>
+
+            <EditText
+                android:id="@+id/editTextAddComments"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Enter more relevant info here(seperate using lines)"
+                android:inputType="textMultiLine" />
 
             <Button
                 android:id="@+id/buttonAddSubmit"
