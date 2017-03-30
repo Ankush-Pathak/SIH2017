@@ -14,6 +14,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -57,6 +59,9 @@ public class TrackGPS extends Service implements LocationListener {
 
     private Location getLocation() {
 
+
+
+
         try {
             locationManager = (LocationManager) mContext
                     .getSystemService(LOCATION_SERVICE);
@@ -70,12 +75,18 @@ public class TrackGPS extends Service implements LocationListener {
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!checkGPS && !checkNetwork) {
-                Toast.makeText(mContext, "No Service Provider Available", Toast.LENGTH_SHORT).show();
-            } else{
+                //Toast.makeText(this.mContext, "No Service Provider Available", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
+            else{
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (checkNetwork) {
-                    Toast.makeText(mContext, "Network", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "Network", Toast.LENGTH_SHORT).show();
 
                     try {
                         locationManager.requestLocationUpdates(
@@ -152,41 +163,6 @@ public class TrackGPS extends Service implements LocationListener {
         return this.canGetLocation;
     }
 
-    public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
-
-        alertDialog.setTitle("GPS Not Enabled");
-
-        alertDialog.setMessage("Do you wants to turn On GPS");
-
-
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(mContext, "Please restart App", Toast.LENGTH_LONG);
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-
-
-                //TrackGPS.this.finish();
-
-
-
-            }
-        });
-
-
-
-
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-
-        alertDialog.show();
-    }
 
 
 
@@ -207,6 +183,10 @@ public class TrackGPS extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
 
+        getLocation();
+        Log.d("Success: ","OnLocationChanged() Called" );
+
+        Toast.makeText(mContext,"OnLocationChanged() Called",Toast.LENGTH_SHORT).show();
     }
 
     @Override

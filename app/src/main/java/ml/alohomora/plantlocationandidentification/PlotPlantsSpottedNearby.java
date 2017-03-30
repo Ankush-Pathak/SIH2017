@@ -1,14 +1,22 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -37,16 +45,22 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
     TrackGPS gps;
     ArrayList<Plant> arrayListPlant;
     private DatabaseReference firebaseDatabase;
+    Marker plantMarker;
+    boolean flag = false;
 
+
+    EditText getSciName,getIsFruitBearing;
+    Bundle savedBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        savedBundle =savedInstanceState;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_plot_plants_spotted_nearby);
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        final SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        //mapFragment.getMapAsync(this);
         arrayListPlant = new ArrayList<>();
         firebaseDatabase = FirebaseDatabase.getInstance().getReference().child("plant");
 
@@ -58,6 +72,7 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     arrayListPlant.add(child.getValue(Plant.class));
                 }
+                mapFragment.getMapAsync(PlotPlantsSpottedNearby.this);
             }
 
             @Override
@@ -87,84 +102,94 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         gps = new TrackGPS(PlotPlantsSpottedNearby.this);
 
 
-        double latitudes[] = new double[arrayListPlant.size()];
-        double longitudes[] = new double[arrayListPlant.size()];
+
+
+        Double latitudes[];// = new double[arrayListPlant.size()];
+        Double longitudes[];// = new double[arrayListPlant.size()];
 
         Iterator<Plant> iteratePlant =  arrayListPlant.iterator();
         int i=0;
 
-        while (iteratePlant.hasNext()){
-            Plant p = iteratePlant.next();
-
-            latitudes[i] = Double.parseDouble(String.valueOf(p.locationLat));
-            longitudes[i] = Double.parseDouble(String.valueOf(p.locationLon));
-
-        }
-
-
         int height=60;
         int width=60;
+        Intent intent1;
 
         BitmapDrawable bitmapDrawable = (BitmapDrawable)getResources().getDrawable(R.drawable.marker1);
         Bitmap b = bitmapDrawable.getBitmap();
         Bitmap sM = Bitmap.createScaledBitmap(b,width,height,false);
 
-
-
-
         double myLatitude = gps.getLatitude();
         double myLongitude = gps.getLongitude();
+        double resultLatLon;
 
-        double resultLatLon[] = new double[latitudes.length];
 
-        for(i=0;i<latitudes.length;i++) {
-            resultLatLon[i] = distance(myLatitude, myLongitude, latitudes[i], longitudes[i]);
+        // Add a marker in myLatLan and move the camera
 
-            if(resultLatLon[i]<=500)
+
+
+        if(gps.canGetLocation)
+             {
+
+
+                LatLng myLatLan = new LatLng(gps.getLatitude(), gps.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("myLocation : " + myLatitude + ", " + myLongitude));
+                mMap.addCircle(new CircleOptions().center(myLatLan).radius(500).strokeColor(Color.BLUE).strokeWidth(5).fillColor(0x5500ff00));
+                float zoomLevel = 16.0f;
+
+                mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLan));
+
+
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLan, zoomLevel));
+
+
+            }
+
+
+
+        //To display nearby plants
+        Log.d("Size",""+arrayListPlant.size());
+        Intent intent;
+        for(Plant p : arrayListPlant)
+        {
+            for(Double d : p.getLocationLat())
             {
-
-
-                // Add a marker in Sydney and move the camera
-                if(gps.canGetLocation()){
-
-
-
-                    LatLng plantlocation = new LatLng(latitudes[i],longitudes[i]);
-                    mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("Marker for plant"));
-                    mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
-                }
-                else
+                resultLatLon= distance(myLatitude,myLongitude,(double) d, (double) p.getLocationLon().get(p.getLocationLat().indexOf(d)));
+                Log.d("Result0",""+resultLatLon);
+                if(resultLatLon<=500)
                 {
 
-                    gps.showSettingsAlert();
+                    Log.d("msg:","OK");
+
+                    // Add a marker in Sydney and move the camera
+                    if(gps.canGetLocation() ){
+
+
+
+                        LatLng plantlocation = new LatLng(d,(double)p.getLocationLon().get(p.getLocationLat().indexOf(d)));
+                        //mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
+                        plantMarker = mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
+
+
+
+
+
+                        float zoomLevel = 16.0f;
+
+
+                        mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
+
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(plantlocation, zoomLevel));
+                        //Log.d("tag:", "Lat:" + latitudes[i] + ", lon:" + longitudes[i]);
+                    }
+
+
                 }
+
             }
 
         }
 
 
-        // Add a marker in myLatLan and move the camera
-        if(gps.canGetLocation()){
-
-
-
-            LatLng myLatLan = new LatLng(gps.getLatitude(),gps.getLongitude());
-            mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(myLatitude + ", " + myLongitude));
-            mMap.addCircle(new CircleOptions().center(myLatLan).radius(500).strokeColor(Color.BLUE).strokeWidth(5).fillColor(0x5500ff00));
-            float zoomLevel = 16.0f;
-
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(myLatLan));
-
-
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLan , zoomLevel));
-
-
-        }
-        else
-        {
-
-            gps.showSettingsAlert();
-        }
 
     }
 
@@ -208,5 +233,18 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if(flag) {
+            Intent intent = new Intent(this, PlotPlantsSpottedNearby.class);
+            startActivity(intent);
+            finish();
+        }
+    }
+
 }
 
