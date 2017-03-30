@@ -1,14 +1,30 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.app.Dialog;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -17,8 +33,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class SearchActivity extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity{
     EditText editTextSrchTxtSrch;
     FirebaseDatabase firebaseDatabaseRetrieveAllData;
     DatabaseReference databaseReferenceRetrieveAllData;
@@ -27,6 +44,7 @@ public class SearchActivity extends AppCompatActivity {
     String searchString = null;
     SearchResultListViewAdapter searchResultListViewAdapter;
     ListView listViewSrchRes;
+    Plant plantSelectedToView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +127,7 @@ public class SearchActivity extends AppCompatActivity {
         searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch);
         listViewSrchRes.setAdapter(searchResultListViewAdapter);
         Log.d("Search","Array Adapter set");
+
     }
 
     boolean checkIfShouldBeAdded(Plant plant)
@@ -117,14 +136,14 @@ public class SearchActivity extends AppCompatActivity {
         matchingSectionsWithSearch.clear();
         Log.d("Search","Search String : " + searchString);
         Log.d("Search", plant.getName() + " contains : " + searchString + " : " + plant.getName().contains(searchString));
-        if(plant.getName().contains(searchString))
+        if(plant.getName().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Name");
             flag = true;
         }
         for(String s : plant.getCommonNames())
         {
-            if(s.contains(searchString))
+            if(s.toLowerCase().contains(searchString.toLowerCase()))
                 flag = true;
         }
         if(flag == true)
@@ -132,50 +151,49 @@ public class SearchActivity extends AppCompatActivity {
             matchingSectionsWithSearch.add("Common name");
         }
 
-        if (plant.getFruitColor().contains(searchString))
+        if (plant.getFruitColor().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Fruit color");
             flag = true;
         }
 
-        if (plant.getFruitShape().contains(searchString))
+        if (plant.getFruitShape().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Fruit shape");
             flag = true;
         }
 
-        if (plant.getLeafColor().contains(searchString))
+        if (plant.getLeafColor().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Leaf color");
             flag = true;
         }
 
-        if (plant.getLeafMargins().contains(searchString))
+        if (plant.getLeafMargins().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Leaf margin type");
             flag = true;
         }
 
-        if (plant.getLeafSize().contains(searchString))
+        if (plant.getLeafSize().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Leaf size");
             flag = true;
         }
 
-        if (plant.getLeafShape().contains(searchString))
+        if (plant.getLeafShape().toLowerCase().contains(searchString.toLowerCase()))
         {
             matchingSectionsWithSearch.add("Leaf shape");
             flag = true;
         }
-        for (String s : plant.getCommonNames())
-        {
-            if(s.contains(searchString)) {
-                flag = true;
-                matchingSectionsWithSearch.add("Common name");
-            }
-        }
+
         Log.d("Search","flag : " + flag);
         Log.d("Search","MatchingSections : " + matchingSectionsWithSearch.toString());
         return flag;
     }
+
+
+
+
 }
+

@@ -15,6 +15,30 @@
       },
       "oauth_client": [
         {
+          "client_id": "819220975325-mej7j80vikl83g0pn5c84rvathld4isp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.alohomora.plantlocationandidentification",
+            "certificate_hash": "1a45934b2fc62bca51a85fb3498371e438c9a0b2"
+          }
+        },
+        {
+          "client_id": "819220975325-pl9fku8oeakt0fu6vd306rl2ojmitnbu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.alohomora.plantlocationandidentification",
+            "certificate_hash": "5728cbdc21c3dbeab054f9516f723398c36fadb7"
+          }
+        },
+        {
+          "client_id": "819220975325-89ep5pte4ohrpo14nv72jkrdgdrf7dai.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ml.alohomora.plantlocationandidentification",
+            "certificate_hash": "f26790ec54d46dcb2a90343d8a5dc72021890604"
+          }
+        },
+        {
           "client_id": "819220975325-tgpqnbpjvsnr6qaimakmodhf6197s9ea.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

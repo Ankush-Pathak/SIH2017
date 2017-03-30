@@ -195,10 +195,12 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 list.add(ref);
                 plant.setImageLeafRef(list);
                 Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
+                databaseReferenceUploadData.push().setValue(plant);
                 finish();
+                Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());
             }
         });
-        databaseReferenceUploadData.push().setValue(plant);
+
     }
 
 
