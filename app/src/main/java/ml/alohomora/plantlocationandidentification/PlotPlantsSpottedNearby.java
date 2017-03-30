@@ -130,6 +130,7 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         if(gps.canGetLocation)
              {
 
+                 mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
                 LatLng myLatLan = new LatLng(gps.getLatitude(), gps.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("myLocation : " + myLatitude + ", " + myLongitude));
@@ -162,6 +163,8 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
                     // Add a marker in Sydney and move the camera
                     if(gps.canGetLocation() ){
+
+                        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
 
 

@@ -155,12 +155,13 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         Bitmap bitmap = bitmapDrawable.getBitmap();
         bitmap = Bitmap.createScaledBitmap(bitmap,60,60,false);
 
+        float zoomLevel = 16.0f;
         googleMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
         for(Double d : lat)
         {
             LatLng latLng = new LatLng(d,lon.get(lat.indexOf(d)));
             googleMap.addMarker(new MarkerOptions().position(latLng).title(plantSelectedToView.getName()).title(plantSelectedToView.getName()).icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.0f));
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
         }
 
     }
