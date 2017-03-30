@@ -1,7 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 /**
- * Created by Ankush on 3/28/2017.
+ * Created by Akshay on 27/03/17.
  */
 import android.Manifest;
 import android.app.AlertDialog;
@@ -14,6 +14,8 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
@@ -27,7 +29,7 @@ import android.widget.Toast;
  * Created by ANQ on 8/8/2016.
  */
 
-public class LocationProvider extends Service implements LocationListener {
+public class TrackGPS extends Service implements LocationListener {
 
     private final Context mContext;
 
@@ -50,12 +52,15 @@ public class LocationProvider extends Service implements LocationListener {
     private static final long MIN_TIME_BW_UPDATES = 1000 * 60 * 1;
     protected LocationManager locationManager;
 
-    public LocationProvider(Context mContext) {
+    public TrackGPS(Context mContext) {
         this.mContext = mContext;
         getLocation();
     }
 
     private Location getLocation() {
+
+
+
 
         try {
             locationManager = (LocationManager) mContext
@@ -70,12 +75,18 @@ public class LocationProvider extends Service implements LocationListener {
                     .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
             if (!checkGPS && !checkNetwork) {
-                Toast.makeText(mContext, "No Service Provider Available", Toast.LENGTH_SHORT).show();
-            } else{
+                //Toast.makeText(this.mContext, "No Service Provider Available", Toast.LENGTH_SHORT).show();
+
+            }
+
+
+
+
+            else{
                 this.canGetLocation = true;
                 // First get location from Network Provider
                 if (checkNetwork) {
-                    Toast.makeText(mContext, "Network", Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(mContext, "Network", Toast.LENGTH_SHORT).show();
 
                     try {
                         locationManager.requestLocationUpdates(
@@ -152,40 +163,6 @@ public class LocationProvider extends Service implements LocationListener {
         return this.canGetLocation;
     }
 
-    public void showSettingsAlert() {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(mContext);
-
-
-        alertDialog.setTitle("GPS Not Enabled");
-
-        alertDialog.setMessage("Do you wants to turn On GPS");
-
-
-        alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                mContext.startActivity(intent);
-
-                Toast.makeText(getApplicationContext(), "Please restart App", Toast.LENGTH_LONG);
-                //TrackGPS.this.finish();
-
-
-
-            }
-        });
-
-
-
-
-        alertDialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-
-
-        alertDialog.show();
-    }
 
 
 
@@ -194,7 +171,7 @@ public class LocationProvider extends Service implements LocationListener {
     public void stopUsingGPS() {
         if (locationManager != null) {
 
-            locationManager.removeUpdates(LocationProvider.this);
+            locationManager.removeUpdates(TrackGPS.this);
         }
     }
 
@@ -206,6 +183,10 @@ public class LocationProvider extends Service implements LocationListener {
     @Override
     public void onLocationChanged(Location location) {
 
+        getLocation();
+        Log.d("Success: ","OnLocationChanged() Called" );
+
+        Toast.makeText(mContext,"OnLocationChanged() Called",Toast.LENGTH_SHORT).show();
     }
 
     @Override
