@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,6 +39,20 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                     plant.add(ds.getValue(Plant.class));
                     idList.add(ds.getKey());
                 }
+                for (int i = 0; i < plant.size(); i++) {
+                    if (plant.get(i).isFullyVerfied()) {
+                        plant.remove(i);
+                        idList.remove(i);
+                    }
+                }
+                mNumberList = (RecyclerView) findViewById(R.id.recyclerViewList);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(VerifyEntriesActivity.this);
+                mNumberList.setLayoutManager(layoutManager);
+                mNumberList.setHasFixedSize(true);
+
+                verifyListAdapter = new VerifyEntriesListAdapter(VerifyEntriesActivity.this,plant.size(),VerifyEntriesActivity.this, plant);
+                mNumberList.setAdapter(verifyListAdapter);
+                Log.d("debug","plant :"+plant.size());
             }
 
             @Override
@@ -46,28 +61,15 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
             }
         });
 
-        ArrayList<Plant> plantVerified = new ArrayList<>();
-        for (int i = 0; i < plant.size(); i++) {
-            if (plant.get(i).isFullyVerfied()) {
-                plant.remove(i);
-                idList.remove(i);
-            }
-        }
+        Log.d("debug","plant to be verified: "+plant.size());
     }
             @Override
             protected void onCreate (Bundle savedInstanceState){
                 super.onCreate(savedInstanceState);
                 //Create object in setup functions
-                setup();
                 setContentView(R.layout.activity_verify_entries);
+                setup();
 
-                mNumberList = (RecyclerView) findViewById(R.id.recyclerViewList);
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-                mNumberList.setLayoutManager(layoutManager);
-                mNumberList.setHasFixedSize(true);
-
-                verifyListAdapter = new VerifyEntriesListAdapter(VerifyEntriesActivity.this,plant.size(),this, plant);
-                mNumberList.setAdapter(verifyListAdapter);
             }
 
             @Override
