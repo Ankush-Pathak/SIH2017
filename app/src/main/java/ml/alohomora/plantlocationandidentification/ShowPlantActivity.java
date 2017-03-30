@@ -1,7 +1,9 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -24,12 +26,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCallback {
     Plant plantSelectedToView;
+    String iD;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,12 +45,13 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         if(intent != null)
         {
             plantSelectedToView = (Plant) intent.getSerializableExtra("plant");
+            iD = intent.getStringExtra("iD");
             Log.d("ShowPlant","Intent got, value : " + plantSelectedToView.toString());
         }
         else
             finish();
         TextView textViewDialogBioName, textViewDialogCommonName,textViewDialogLeafSize,textViewDialogLeafShape,textViewDialogLeafMargin, textViewDialogLeafTip,textViewDialogLeafBase,textViewDialogLeafColor,textViewDialogFruitColor,textViewDialogFruitBearing,textViewDialogComment;
-        Button buttonDialogOk;
+        Button buttonDialogOk,buttonAddLocation;
         SupportMapFragment mapView;
         ImageView imageView;
         imageView = (ImageView)findViewById(R.id.imageViewDialogShwPlantImage);
@@ -59,6 +67,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         textViewDialogLeafTip = (TextView) findViewById(R.id.textViewDialogShwPlantLeafTip);
         textViewDialogComment = (TextView) findViewById(R.id.textViewDialogShwComments);
         buttonDialogOk = (Button) findViewById(R.id.buttonDialogShwPlantOk);
+        buttonAddLocation = (Button) findViewById(R.id.buttonDialogShwAddCurrentLocation);
         mapView = (SupportMapFragment)getSupportFragmentManager().findFragmentById(R.id.mapViewDialogShwPlant);
         textViewDialogBioName.append(" " + plantSelectedToView.getName());
         textViewDialogComment.append(" " + plantSelectedToView.getComments());
@@ -88,8 +97,40 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         ViewGroup vg = (ViewGroup) findViewById(R.id.linearLayoutAcitivityShowPlant);
         vg.invalidate();
         mapView.getMapAsync(ShowPlantActivity.this);
-
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference().child("plant");
         Glide.with(ShowPlantActivity.this).load(plantSelectedToView.getImageLeafRef().get(0)).into(imageView);
+        buttonAddLocation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LocationProvider locationProvider = new LocationProvider(ShowPlantActivity.this);
+                if(locationProvider.canGetLocation())
+                {
+                    double lat = locationProvider.getLatitude();
+                    double lon = locationProvider.getLongitude();
+                    List<Double> latL = plantSelectedToView.getLocationLat();
+                    latL.add(lat);
+                    List<Double> lonL = plantSelectedToView.getLocationLon();
+                    lonL.add(lon);
+
+                    plantSelectedToView.setLocationLat(latL);
+                    plantSelectedToView.setLocationLon(lonL);
+                    databaseReference.child(iD).setValue(plantSelectedToView);
+                    AlertDialog alertDialog;
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(ShowPlantActivity.this);
+                    alertDialogBuilder.setTitle("Info");
+                    alertDialogBuilder.setMessage("Your current location has been marked in the database for this plant.");
+                    alertDialogBuilder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                        }
+                    });
+                    alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
+            }
+        });
 
     }
     String convertListToString(List<String> list)
@@ -118,7 +159,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         for(Double d : lat)
         {
             LatLng latLng = new LatLng(d,lon.get(lat.indexOf(d)));
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(plantSelectedToView.getName()).title(d+","+(lon.get(lat.indexOf(d)))).icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(plantSelectedToView.getName()).title(plantSelectedToView.getName()).icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.0f));
         }
 
