@@ -82,16 +82,18 @@ public class SignupActivity extends AppCompatActivity {
                             Boolean flag = false;
                             for (User u : userlist)
                             {
-                                if (u.getEmail().toLowerCase().equals(email.toLowerCase()) && u.getPassword().toLowerCase().equals(password.toLowerCase()))
+                                if (u.getEmail().toLowerCase().equals(email.toLowerCase()) )
                                 {
                                     flag = true;
+                                    break;
                                 }
-                                if (flag == true)
-                                {
-                                    Toast.makeText(getApplicationContext(), "Already registerd please login", Toast.LENGTH_SHORT).show();
 
 
-                                }
+
+                            }
+                            if (flag == true)
+                            {
+                                Toast.makeText(getApplicationContext(), "Already registerd please login", Toast.LENGTH_SHORT).show();
 
 
                             }
