@@ -22,7 +22,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity {
-    Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuPlotPlantsSpottedNearby;
+    Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuPlotPlantsSpottedNearby,buttonMenuVerifyEntries,buttonMenuIdentifyPlnt;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
     SharedPreferences sharedPreferences;
@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity {
 
     void setUpObjects()
     {
+
+        buttonMenuVerifyEntries  = (Button) findViewById(R.id.buttonMenuVerifyEntries);
+        buttonMenuIdentifyPlnt = (Button)findViewById(R.id.buttonMenuIdentifyPlnt);
         buttonMenuSearchPlnt = (Button)findViewById(R.id.buttonMenuSearchPlnt);
         buttonAddToDatabase = (Button) findViewById(R.id.buttonMenuAddNewPlntTDb);
         buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
@@ -82,6 +85,26 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+        buttonMenuIdentifyPlnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,IdentifyPlantActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+
+
 
         buttonMenuPlotPlantsSpottedNearby.setOnClickListener(new View.OnClickListener() {
             @Override

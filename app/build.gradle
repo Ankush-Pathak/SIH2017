@@ -6,7 +6,7 @@ android {
     defaultConfig {
         applicationId "ml.alohomora.plantlocationandidentification"
         minSdkVersion 15
-        targetSdkVersion 25
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -41,7 +41,9 @@ dependencies {
 
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.android.support:design:26.0.0-alpha1'
 
+    compile 'com.android.support:recyclerview-v7:24.1.1'
 }
 
 //apply plugin: 'com.google.gms.google-services'

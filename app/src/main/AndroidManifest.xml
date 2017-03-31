@@ -29,9 +29,13 @@
         <activity
             android:name=".AddToDatabaseActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".ShowPlantActivity" />
+
         <activity android:name=".IdentifyPlantActivity" />
+        <activity android:name=".ShowPlantActivity" />
         <activity android:name=".PlantIdentifyResultListActivity" />
+
+        <activity android:name=".PlotPlantsSpottedNearby"/>
+
         <activity android:name=".VerifyEntriesActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>
