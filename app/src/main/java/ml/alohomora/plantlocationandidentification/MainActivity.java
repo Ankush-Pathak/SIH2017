@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setUpObjects();
         setupListenersAndIntents();
+
     }
 
     void setUpObjects()

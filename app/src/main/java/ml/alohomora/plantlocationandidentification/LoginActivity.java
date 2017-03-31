@@ -53,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         {
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
-            Toast.makeText(LoginActivity.this,"We have directly logged you in.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this,"Welcome back,you've been directly logged in",Toast.LENGTH_SHORT).show();
             finish();
         }
         else if(System.currentTimeMillis()-session>172800000&& session!=0)
