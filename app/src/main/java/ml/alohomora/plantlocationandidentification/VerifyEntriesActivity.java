@@ -83,5 +83,6 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                 intent.putExtra("plant", p);
                 intent.putExtra("id",id);
                 startActivity(intent);
+                finish();
             }
 }
