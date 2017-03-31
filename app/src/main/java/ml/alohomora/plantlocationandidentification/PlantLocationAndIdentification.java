@@ -17,7 +17,7 @@ public class PlantLocationAndIdentification extends Application {
         super.onCreate();
         //for Calligraphy
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/AvantGarde.ttf")
+                .setDefaultFontPath("fonts/AvantGardeBold.TTF")
                 .setFontAttrId(R.attr.fontPath)
                 .build());
 
