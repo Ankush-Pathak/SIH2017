@@ -3,8 +3,10 @@ package ml.alohomora.plantlocationandidentification;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuPlotPlantsSpottedNearby;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
+    SharedPreferences sharedPreferences;
 
     TrackGPS gps;
     @Override
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
+        sharedPreferences = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
     }
 
     void setupListenersAndIntents()
@@ -62,9 +66,20 @@ public class MainActivity extends AppCompatActivity {
         buttonAddToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                Boolean language = settings.getBoolean("privilege",false);
+                if(language)
+                {
                 Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
                 startActivity(intent);
                 finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 

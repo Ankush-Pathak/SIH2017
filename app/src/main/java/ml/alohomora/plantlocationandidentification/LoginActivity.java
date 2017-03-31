@@ -67,6 +67,8 @@ public class LoginActivity extends AppCompatActivity {
                     userlist.add(d.getValue(User.class));
                 }
                 Log.d("Userlist size",userlist.size() + "");
+
+                //login button
                 loginSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -104,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("score", String.valueOf(user.getScore()));
                                     editor.putBoolean("loginFlag",loginFlag);
                                     editor.putLong("session",System.currentTimeMillis());
+                                    editor.putBoolean("privilege",user.isuserpriviledge);
                                     editor.commit();
                                     //next activity
                                     Intent intent=new Intent(LoginActivity.this,MainActivity.class);
@@ -112,9 +115,11 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else if(loginFlag==false)
                                 {
-                                    Toast.makeText(getApplicationContext(), "login unsuccessful signup first", Toast.LENGTH_SHORT).show();
+
+                                    Toast.makeText(getApplicationContext(), "login unsuccessful wrong password/signup first", Toast.LENGTH_SHORT).show();
 
                                 }
+
 
 
 
