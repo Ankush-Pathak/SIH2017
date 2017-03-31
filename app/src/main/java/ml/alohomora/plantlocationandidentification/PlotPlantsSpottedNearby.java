@@ -284,16 +284,6 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
                     fruitColor = p.fruitColor;
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setMessage("Look at this dialog!")
-                            .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialog, int id) {
-                                    //do things
-                                }
-                            });
-                    AlertDialog alert = builder.create();
-                    alert.show();
 
 
 
