@@ -1,7 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -90,7 +89,6 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         mapView.getMapAsync(ShowPlantActivity.this);
 
         Glide.with(ShowPlantActivity.this).load(plantSelectedToView.getImageLeafRef().get(0)).into(imageView);
-
     }
     String convertListToString(List<String> list)
     {
@@ -109,7 +107,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         ArrayList<Double> lat =  (ArrayList<Double>) plantSelectedToView.getLocationLat();
-        ArrayList<Double> lon = (ArrayList<Double>) plantSelectedToView.getLocationLon();
+        ArrayList<Double> lon = (ArrayList<Double>) plantSelectedToView.getLocationLat();
         BitmapDrawable bitmapDrawable = (BitmapDrawable) getResources().getDrawable(R.drawable.plant_map_marker);
         Bitmap bitmap = bitmapDrawable.getBitmap();
         bitmap = Bitmap.createScaledBitmap(bitmap,60,60,false);
@@ -118,7 +116,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         for(Double d : lat)
         {
             LatLng latLng = new LatLng(d,lon.get(lat.indexOf(d)));
-            googleMap.addMarker(new MarkerOptions().position(latLng).title(plantSelectedToView.getName()).title(d+","+(lon.get(lat.indexOf(d)))).icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
+            googleMap.addMarker(new MarkerOptions().position(latLng).title(plantSelectedToView.getName()).icon(BitmapDescriptorFactory.fromBitmap(bitmap)));
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,10.0f));
         }
 
