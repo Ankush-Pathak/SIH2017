@@ -25,7 +25,6 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="password"
-        android:inputType="textPersonName"
         android:layout_gravity="center_horizontal"
         tools:layout_editor_absoluteX="62dp"
         tools:layout_editor_absoluteY="156dp" />
@@ -47,4 +46,15 @@
         android:layout_gravity="center_horizontal"
         tools:layout_editor_absoluteX="132dp"
         tools:layout_editor_absoluteY="355dp" />
+
+    <TextView
+        android:id="@+id/textViewisuserpriviledge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Do you want to be Priviledge user?" />
+
+    <CheckBox
+        android:id="@+id/checkBoxtocheckpriviledgeuser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

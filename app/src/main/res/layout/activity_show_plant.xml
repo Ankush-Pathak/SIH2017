@@ -136,6 +136,12 @@
                 android:textColor="#000000"
                 android:textSize="22sp" />
 
+            <Button
+                android:id="@+id/buttonDialogShwAddCurrentLocation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="I have spotted this plant at my current location" />
+
             <fragment
                 android:id="@+id/mapViewDialogShwPlant"
                 android:name="com.google.android.gms.maps.SupportMapFragment"
