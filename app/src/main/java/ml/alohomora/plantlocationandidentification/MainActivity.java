@@ -3,8 +3,10 @@ package ml.alohomora.plantlocationandidentification;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ActionMenuItemView;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     Button buttonMenuSearchPlnt,buttonAddToDatabase, buttonMenuPlotPlantsSpottedNearby,buttonMenuVerifyEntries,buttonMenuIdentifyPlnt;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
+    SharedPreferences sharedPreferences;
 
     TrackGPS gps;
     @Override
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
+        sharedPreferences = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
     }
 
     void setupListenersAndIntents()
@@ -65,9 +69,21 @@ public class MainActivity extends AppCompatActivity {
         buttonAddToDatabase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
+                Boolean privilege = settings.getBoolean("privilege",false);
+                if(privilege)
+                {
                 Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
                 startActivity(intent);
                 finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -75,14 +91,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,IdentifyPlantActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -130,6 +138,27 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Please start location",Toast.LENGTH_LONG).show();
                     }
                 }
+            }
+        });
+
+        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
+                Boolean privilege = settings.getBoolean("privilege",false);
+                if(privilege)
+                {
+                    Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
     }

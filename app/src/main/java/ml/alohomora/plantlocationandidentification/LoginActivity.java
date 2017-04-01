@@ -29,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
     boolean loginFlag;
+    User user;
     long session;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         loginSubmit = (Button) findViewById(R.id.buttonLoginSubmit);
         tosignupactivity = (Button) findViewById(R.id.buttonLoginMoveToSignUpActivity);
         FirebaseDatabase fb;
+
         DatabaseReference dr;
 
         fb = FirebaseDatabase.getInstance();
@@ -65,14 +67,17 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot d : dataSnapshot.getChildren()) {
                     userlist.add(d.getValue(User.class));
+                    Log.d("user",d.child("privilege").toString());
                 }
                 Log.d("Userlist size",userlist.size() + "");
+
+                //login button
                 loginSubmit.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         final String email = emaillogin.getText().toString();
                         final String password = passwordlogin.getText().toString();
-                        final User user = new User();
+                        //User user = new User();
                         loginFlag = false;
 
 
@@ -93,30 +98,41 @@ public class LoginActivity extends AppCompatActivity {
                             for (User u : userlist) {
                                 if (u.getEmail().toLowerCase().equals(email.toLowerCase()) && u.getPassword().toLowerCase().equals(password.toLowerCase())) {
                                     loginFlag = true;
+                                    user = u;
                                     break;
                                     }
                                 }
-                                if (loginFlag == true) {
-                                    Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
-                                    editor.putString("email", email);
-                                    editor.putString("password", password);
-                                    editor.putString("level",String.valueOf(user.getLevel()) );
-                                    editor.putString("score", String.valueOf(user.getScore()));
-                                    editor.putBoolean("loginFlag",loginFlag);
-                                    editor.putLong("session",System.currentTimeMillis());
-                                    editor.commit();
-                                    //next activity
-                                    Intent intent=new Intent(LoginActivity.this,MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                }
-                                else if(loginFlag==false)
-                                {
-                                    Toast.makeText(getApplicationContext(), "login unsuccessful signup first", Toast.LENGTH_SHORT).show();
-
-                                }
 
 
+
+
+
+                        }
+                        if (loginFlag == true) {
+                            Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
+                            editor.putString("email", email);
+                            editor.putString("password", password);
+                            editor.putString("level",String.valueOf(user.getLevel()) );
+                            editor.putString("score", String.valueOf(user.getScore()));
+                            editor.putBoolean("loginFlag",loginFlag);
+                            editor.putLong("session",System.currentTimeMillis());
+                            editor.putBoolean("privilege",user.privilege);
+
+                            editor.commit();
+                            //next activity
+                            Log.d("user",user.getPrivilege()+"");
+                            Log.d("email",user.getEmail() + "");
+                            Log.d("password",user.getPassword() +"");
+                            Log.d("level" ,user.getLevel() + "");
+                            Log.d("score",user.getScore() + "");
+                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        else if(loginFlag==false)
+                        {
+
+                            Toast.makeText(getApplicationContext(), "login unsuccessful wrong password/signup first", Toast.LENGTH_SHORT).show();
 
                         }
                     }
