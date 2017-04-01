@@ -147,6 +147,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
+        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                Boolean language = settings.getBoolean("privilege",false);
+                if(language)
+                {
+                    Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
 
