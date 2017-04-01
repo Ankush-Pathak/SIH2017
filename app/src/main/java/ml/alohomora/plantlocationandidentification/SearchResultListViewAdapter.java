@@ -2,6 +2,7 @@ package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +29,9 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
     ArrayList<String> matchingSections;
     String searchString;
     ArrayList<String> iD;
-    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections,ArrayList<String> iD)
+    Bitmap bitmap;
+    boolean compareImg;
+    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections,ArrayList<String> iD,Bitmap bitmap, boolean compareImg)
     {
         super(context,0,arrayListPlant);
         this.context = context;
@@ -34,6 +40,8 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         this.matchingSections = new ArrayList<>();
         this.searchString = searchString;
         this.iD = iD;
+        this.bitmap = bitmap;
+        this.compareImg = compareImg;
         Log.d("SearchAdapter","Adapter constructed");
     }
     @Override
@@ -48,9 +56,11 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         View listItem = inflater.inflate(R.layout.list_item_search_search_results,null,true);
         TextView textViewSrchResName, textViewSrchResMatchingSection;
         Button buttonView;
+        ImageView imageView;
         textViewSrchResName = (TextView)listItem.findViewById(R.id.textViewSrchResListItmName);
         textViewSrchResMatchingSection = (TextView)listItem.findViewById(R.id.textViewSrchResListItmMatchSec);
         buttonView = (Button)listItem.findViewById(R.id.buttonSrchResListView);
+        imageView = (ImageView)listItem.findViewById(R.id.imageViewSrchResListImg);
         textViewSrchResName.append(" " + plant.getName());
         //If some attribute value matches the search string display it else, remove it from the list
         constructMatchingSection(plant);
@@ -64,6 +74,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
                 context.startActivity(intent);
             }
         });
+        Glide.with(context).load(plant.getImageLeafRef().get(0)).into(imageView);
         return listItem;
     }
     String convertListToString(List<String> list)

@@ -81,7 +81,7 @@ public class SearchActivity extends AppCompatActivity{
                 {
                     arrayListPlantFromDb.clear();
                     iD.clear();
-                    searchResultListViewAdapter = new SearchResultListViewAdapter(searchString,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD);
+                    searchResultListViewAdapter = new SearchResultListViewAdapter(searchString,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD,null,false);
                     listViewSrchRes.setAdapter(searchResultListViewAdapter);
                 }
             }
@@ -128,7 +128,7 @@ public class SearchActivity extends AppCompatActivity{
     void updateArrayAdapter(String s)
     {
         Log.d("Search","Now setting adapeter, matchingsection size : " + matchingSectionsWithSearch.size()  + " with values " + matchingSectionsWithSearch.toString());
-        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD);
+        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD,null,false);
         listViewSrchRes.setAdapter(searchResultListViewAdapter);
         Log.d("Search","Array Adapter set");
 

@@ -3,6 +3,7 @@ package ml.alohomora.plantlocationandidentification;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.net.Uri;
 import android.os.Environment;
@@ -98,6 +99,7 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                         imagePath = file2.getPath();
                         Log.d("Leaving control","Leaving control");
                     }
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

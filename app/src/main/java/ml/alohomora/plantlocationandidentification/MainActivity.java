@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(info == null)
                 {
-                    Toast.makeText(getApplicationContext(),"Internet Unavailable, Please restart app.",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"Internet Unavailable",Toast.LENGTH_LONG).show();
 
                 }
 
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
                     else
                     {
-                        Toast.makeText(getApplicationContext(),"Please start location and restart app",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),"Please start location",Toast.LENGTH_LONG).show();
                     }
                 }
             }
