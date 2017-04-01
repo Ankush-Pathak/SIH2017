@@ -70,9 +70,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                Boolean language = settings.getBoolean("privilege",false);
-                if(language)
+
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
+                Boolean privilege = settings.getBoolean("privilege",false);
+                if(privilege)
                 {
                 Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
                 startActivity(intent);
@@ -90,14 +91,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this,IdentifyPlantActivity.class);
-                startActivity(intent);
-                finish();
-            }
-        });
-        buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -152,9 +145,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                Boolean language = settings.getBoolean("privilege",false);
-                if(language)
+                SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
+                Boolean privilege = settings.getBoolean("privilege",false);
+                if(privilege)
                 {
                     Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
                     startActivity(intent);
@@ -164,6 +157,8 @@ public class MainActivity extends AppCompatActivity {
                 {
                     Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
                 }
+
+
             }
         });
     }
