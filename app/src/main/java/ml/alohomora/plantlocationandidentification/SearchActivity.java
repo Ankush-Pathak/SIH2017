@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
@@ -51,6 +52,14 @@ public class SearchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setUpObjects();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(SearchActivity.this , MainActivity.class);
+        startActivity(intent);
     }
 
     void setUpObjects()

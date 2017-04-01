@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -59,6 +60,14 @@ public class VerifyActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(VerifyActivity.this , MainActivity.class);
+        startActivity(intent);
     }
 
 

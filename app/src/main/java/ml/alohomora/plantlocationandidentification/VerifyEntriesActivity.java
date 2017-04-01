@@ -72,6 +72,14 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
 
             }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(VerifyEntriesActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
             @Override
             public void onListItemClick ( int onListItemClickId){
 //        Toast toast = Toast.makeText(this,plant.get(onListItemClickId).getLeafColor(),Toast.LENGTH_SHORT);
