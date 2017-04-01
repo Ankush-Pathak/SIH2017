@@ -1,21 +1,14 @@
 package ml.alohomora.plantlocationandidentification;
 
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -200,11 +193,11 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
     private double distance(double myLatitude, double myLongitude, double latitude, double longitude) {
         double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(latitude-myLatitude);
-        double dLng = Math.toRadians(longitude-myLongitude);
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        double diffLat = Math.toRadians(latitude-myLatitude);
+        double diffLng = Math.toRadians(longitude-myLongitude);
+        double a = Math.sin(diffLat/2) * Math.sin(diffLat/2) +
                 Math.cos(Math.toRadians(myLatitude)) * Math.cos(Math.toRadians(latitude)) *
-                        Math.sin(dLng/2) * Math.sin(dLng/2);
+                        Math.sin(diffLng/2) * Math.sin(diffLng/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         float distance = (float) (earthRadius * c);
 
@@ -280,9 +273,11 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
                             */
                             bioName = p.getName();
 
-                    p.getCommonNames();
+                   // p.getCommonNames();
 
                     fruitColor = p.fruitColor;
+
+                    Log.d("fruitColor:" , fruitColor);
 
 
 
