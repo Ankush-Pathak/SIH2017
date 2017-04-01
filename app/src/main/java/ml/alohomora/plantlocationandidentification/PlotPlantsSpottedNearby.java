@@ -39,7 +39,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     TrackGPS gps;
@@ -246,5 +246,15 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         }
     }
 
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+
+
+        if(marker.equals(plantMarker))
+        {
+
+        }
+        return false;
+    }
 }
 
