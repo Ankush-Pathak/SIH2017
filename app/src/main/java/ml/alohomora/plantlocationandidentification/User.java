@@ -1,6 +1,8 @@
 package ml.alohomora.plantlocationandidentification;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Ankush on 3/29/2017.
@@ -12,16 +14,23 @@ public class User implements Serializable{
     int level;
     String email;
     String password;
-    public User(int score, int level, String email, String password) {
+    Boolean isuserpriviledge;
+    ArrayList contributto;
+
+    public User(int score, int level, String email, String password, Boolean isuserprivilegde,ArrayList contributedto ) {
         this.score = score;
         this.level = level;
         this.email = email;
         this.password = password;
+       this.isuserpriviledge=isuserprivilegde;
+        this.contributto=new ArrayList();
     }
 
     public User() {
         score = level = 0;
         email = password = null;
+        isuserpriviledge=false;
+        contributto=new ArrayList();
     }
 
     public int getScore() {
@@ -54,5 +63,21 @@ public class User implements Serializable{
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Boolean getIsuserpriviledge() {
+        return isuserpriviledge;
+    }
+
+    public void setIsuserpriviledge(Boolean isuserpriviledge) {
+        this.isuserpriviledge = isuserpriviledge;
+    }
+
+    public ArrayList getContributedto() {
+        return contributto;
+    }
+
+    public void setContributedto(ArrayList contributedto) {
+        this.contributto = contributedto;
     }
 }

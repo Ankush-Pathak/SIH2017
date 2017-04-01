@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -130,6 +132,7 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         if(gps.canGetLocation)
              {
 
+                 mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
                 LatLng myLatLan = new LatLng(gps.getLatitude(), gps.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("myLocation : " + myLatitude + ", " + myLongitude));
@@ -162,6 +165,8 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
                     // Add a marker in Sydney and move the camera
                     if(gps.canGetLocation() ){
+
+                        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
 
 
@@ -249,11 +254,62 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
     @Override
     public boolean onMarkerClick(Marker marker) {
 
-
         if(marker.equals(plantMarker))
         {
+            marker.getPosition();
+            String bioName="",fruitColor;
 
-        }
+
+
+            for(Plant p : arrayListPlant)
+            {
+                for(Double d : p.getLocationLat())
+                {
+
+
+
+
+                        // Add a marker in Sydney and move the camera
+                      /*  if(gps.canGetLocation() ){
+
+
+
+                            LatLng plantlocation = new LatLng(d,(double)p.getLocationLon().get(p.getLocationLat().indexOf(d)));
+                            //mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
+                            plantMarker = mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
+                            */
+                            bioName = p.getName();
+
+                    p.getCommonNames();
+
+                    fruitColor = p.fruitColor;
+
+
+
+
+
+
+
+                          /*  float zoomLevel = 16.0f;
+
+
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
+
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(plantlocation, zoomLevel));
+                            //Log.d("tag:", "Lat:" + latitudes[i] + ", lon:" + longitudes[i]);*/
+                        }
+
+
+                    }
+
+                }
+
+
+
+
+
+
+
         return false;
     }
 }
