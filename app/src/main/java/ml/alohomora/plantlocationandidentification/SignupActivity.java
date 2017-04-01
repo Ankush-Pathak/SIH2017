@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class SignupActivity extends AppCompatActivity {
     DatabaseReference dr;
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
+    CheckBox tocheckpriviledgeuser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +39,17 @@ public class SignupActivity extends AppCompatActivity {
         signuppassword = (EditText) findViewById(R.id.editTextsignuppassword);
         signup = (Button) findViewById(R.id.buttonSignupSubmit);
         toLoginActivity = (Button) findViewById(R.id.buttonSignupMovetoLoginActivity);
+        tocheckpriviledgeuser=(CheckBox)findViewById(R.id.checkBoxtocheckpriviledgeuser);
         fb = FirebaseDatabase.getInstance();
+        //User user = new User(0,0,"a@a.aa","123456",true,null);
 
         Log.d("Firebase","Hopefully added to database");
 
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferenceSync = firebaseDatabaseSync.getReference();
         databaseReferenceSync.keepSynced(true);
+
+        //signup button
         signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,13 +105,15 @@ public class SignupActivity extends AppCompatActivity {
                             }
                             if(flag == false)
                             {
-                                User user = new User(0, 0, email, password);
+
+                                User user = new User(0,0,email,password,tocheckpriviledgeuser.isChecked(),new ArrayList());
                                 dr.push().setValue(user);
                                 Toast.makeText(getApplicationContext(), "sign in successful", Toast.LENGTH_SHORT).show();
                                 //next activity
                                 Intent intent=new Intent(SignupActivity.this,LoginActivity.class);
                                 startActivity(intent);
                             }
+
 
                         }
                         @Override
