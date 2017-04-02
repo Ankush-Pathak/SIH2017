@@ -159,15 +159,6 @@
                 android:layout_margin="4dp"/>
 
             <Button
-                android:id="@+id/buttonMenuGeotag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Geotag a found plant"
-                android:background="@drawable/buttonshapemenu"
-                android:layout_margin="4dp"/>
-
-            <Button
                 android:id="@+id/buttonMenuShowNearbyPlants"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

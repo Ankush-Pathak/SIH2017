@@ -2,6 +2,7 @@ package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,11 +25,13 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
     DatabaseReference databaseReferencePlant,databaseReferenceId;
     ArrayList<Plant> plant;
     ArrayList<String> idList;
-    Context context;
+    SharedPreferences sharedPreferences;
+    String userId;
     void setup() {
         plant = new ArrayList<>();
         idList = new ArrayList<>();
-
+        sharedPreferences = this.getSharedPreferences("logedinUser", MODE_PRIVATE);
+        userId = sharedPreferences.getString("email","");
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferencePlant = firebaseDatabaseSync.getReference().child("plant");
         databaseReferenceId = firebaseDatabaseSync.getReference();
@@ -40,7 +43,7 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                     idList.add(ds.getKey());
                 }
                 for (int i = 0; i < plant.size(); i++) {
-                    if (plant.get(i).isFullyVerfied()) {
+                    if (plant.get(i).isFullyVerfied()||plant.get(i).getUploaderId().equals(userId)||plant.get(i).getNameVerificationCount()>=5) {
                         plant.remove(i);
                         idList.remove(i);
                     }

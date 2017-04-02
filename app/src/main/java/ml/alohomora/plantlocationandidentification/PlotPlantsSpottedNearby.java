@@ -251,6 +251,7 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         }
     }
 
+
     @Override
     public boolean onMarkerClick(Marker marker) {
 
