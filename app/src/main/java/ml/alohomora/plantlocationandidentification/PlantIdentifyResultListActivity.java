@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,10 +8,21 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class PlantIdentifyResultListActivity extends AppCompatActivity {
 
     ArrayList<Plant> plant;
     ListView listView;
+
+    //calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

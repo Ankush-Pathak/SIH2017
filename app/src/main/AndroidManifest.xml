@@ -37,7 +37,7 @@
         <activity android:name=".PlotPlantsSpottedNearby"/>
 
         <activity android:name=".VerifyEntriesActivity"></activity>
-        <activity android:name=".PlotPlantsSpottedNearby"></activity>
+
         <activity android:name=".VerifyActivity"></activity>
         <activity android:name=".LoginActivity">
             <intent-filter>

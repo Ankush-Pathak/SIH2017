@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -31,6 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     boolean loginFlag;
     User user;
     long session;
+
+    //calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
