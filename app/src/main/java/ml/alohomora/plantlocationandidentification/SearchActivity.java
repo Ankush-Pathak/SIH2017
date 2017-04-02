@@ -1,8 +1,13 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -32,6 +37,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.core.Core;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,11 +53,44 @@ public class SearchActivity extends AppCompatActivity{
     DatabaseReference databaseReferenceRetrieveAllData;
     ArrayList<Plant> arrayListPlantFromDb;
     ArrayList<String> matchingSectionsWithSearch;
-    String searchString = null;
+    String searchString = null,imagePath;
     SearchResultListViewAdapter searchResultListViewAdapter;
     ListView listViewSrchRes;
     Plant plantSelectedToView;
+    Bitmap imageBitmap = null;
+    boolean imageSearch = false;
+    Button buttonSrchImageSrch;
+
     ArrayList<String> iD;
+
+
+    static {
+        OpenCVLoader.initDebug();
+    }
+
+
+    private BaseLoaderCallback mOpenCVCallBack = new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status) {
+                case LoaderCallbackInterface.SUCCESS:
+                {
+                    Log.i("TAG", "OpenCV loaded successfully");
+                    // Create and set View
+                    setContentView(R.layout.activity_search);
+                } break;
+                default:
+                {
+                    super.onManagerConnected(status);
+                } break;
+            }
+        }
+    };
+
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +101,7 @@ public class SearchActivity extends AppCompatActivity{
     void setUpObjects()
     {
         editTextSrchTxtSrch = (EditText)findViewById(R.id.editTextSearchTextSrch);
+        buttonSrchImageSrch = (Button) findViewById(R.id.buttonSearchImageSrch);
         firebaseDatabaseRetrieveAllData = FirebaseDatabase.getInstance();
         databaseReferenceRetrieveAllData = firebaseDatabaseRetrieveAllData.getReference().child("plant");
         listViewSrchRes = (ListView)findViewById(R.id.listViewSearchSrchResults);
@@ -91,6 +137,13 @@ public class SearchActivity extends AppCompatActivity{
                 //Toast.makeText(SearchActivity.this,"After Text changed",Toast.LENGTH_SHORT).show();
             }
         });
+        buttonSrchImageSrch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageBasedSearch();
+            }
+        });
+
     }
 
     void retrieveFbData(String st)
@@ -128,7 +181,7 @@ public class SearchActivity extends AppCompatActivity{
     void updateArrayAdapter(String s)
     {
         Log.d("Search","Now setting adapeter, matchingsection size : " + matchingSectionsWithSearch.size()  + " with values " + matchingSectionsWithSearch.toString());
-        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD,null,false);
+        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD,imageBitmap,imageSearch);
         listViewSrchRes.setAdapter(searchResultListViewAdapter);
         Log.d("Search","Array Adapter set");
 
@@ -194,6 +247,52 @@ public class SearchActivity extends AppCompatActivity{
         Log.d("Search","flag : " + flag);
         Log.d("Search","MatchingSections : " + matchingSectionsWithSearch.toString());
         return flag;
+    }
+    void imageBasedSearch()
+    {
+        String imageName = "temp.jpeg";
+        File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) ,"Plant_Id");
+        file.mkdirs();
+        //file.mkdirs();
+        File file2 = new File(file.getPath() + File.separator + imageName);
+        Log.d("File",file2.getName() + " " + file2.getAbsolutePath());
+        if(file2.exists() || file2.isDirectory())
+            Log.d("File", "File exists");
+        Uri uri = Uri.fromFile(file2);
+        if(uri == null)
+            Log.d("File","Uri null");
+        else
+            Log.d("File","Uri : " + uri.toString());
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+        takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, 100);
+            imagePath = file2.getPath();
+            Log.d("Leaving control","Leaving control");
+        }
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        Log.d("Result", "ReqCode : " + requestCode + " Res Code : " + resultCode);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            //Uri uri = data.getData();
+            try {
+                File file = new File(imagePath);
+                Uri uri = Uri.fromFile(file);
+                imageBitmap = BitmapFactory.decodeStream(SearchActivity.this.getContentResolver().openInputStream(uri),null,null);
+                Log.d("Image",imageBitmap.getHeight() + " " + imageBitmap.getWidth());
+                imageBitmap = Bitmap.createScaledBitmap(imageBitmap,1600,1200,false);
+                Log.d("Image",imageBitmap.getHeight() + " " + imageBitmap.getWidth());
+                imageSearch = true;
+                searchString = "";
+                retrieveFbData("");
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 

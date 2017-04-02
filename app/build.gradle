@@ -2,11 +2,11 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.1"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "ml.alohomora.plantlocationandidentification"
         minSdkVersion 15
-        targetSdkVersion 23
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -17,6 +17,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    splits
+            {
+                abi
+                        {
+                            enable true
+                            reset()
+                            include 'x86','armeabi','armeabi-v7a','mips','x86_64','mips64'
+                            universalApk false
+                        }
+            }
 }
 
 dependencies {
@@ -36,14 +46,15 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:10.0.1'
     compile 'com.google.firebase:firebase-auth:10.0.1'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
-    compile 'com.google.android.gms:play-services-maps:10.0.1' // changed by Akshay at 11.35, 29/3/17
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    // changed by Akshay at 11.35, 29/3/17
     testCompile 'junit:junit:4.12'
-
     compile 'com.google.android.gms:play-services-maps:10.0.1'
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:design:26.0.0-alpha1'
-
     compile 'com.android.support:recyclerview-v7:24.1.1'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+    compile project(':openCVLibrary320')
 }
 
 //apply plugin: 'com.google.gms.google-services'

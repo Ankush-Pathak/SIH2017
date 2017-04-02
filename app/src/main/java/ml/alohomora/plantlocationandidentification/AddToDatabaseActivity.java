@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -29,6 +30,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import org.opencv.android.OpenCVLoader;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -47,6 +50,9 @@ public class AddToDatabaseActivity extends AppCompatActivity {
     StorageReference storageReferenceUploadImage;
     Bitmap imageBitmap;
     String imageName,imagePath;
+    static {
+        OpenCVLoader.initDebug();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -181,7 +187,11 @@ public class AddToDatabaseActivity extends AppCompatActivity {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         imageBitmap.compress(Bitmap.CompressFormat.JPEG, 80, baos);
         byte[] data = baos.toByteArray();
-
+        final ProgressDialog progress = new ProgressDialog(this);
+        progress.setMessage("Uploading image...");
+        progress.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progress.setIndeterminate(true);
+        progress.show();
         UploadTask uploadTask = storageReferenceUploadImage.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
@@ -198,6 +208,7 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 list.add(ref);
                 plant.setImageLeafRef(list);
                 Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
+                progress.dismiss();
                 databaseReferenceUploadData.push().setValue(plant);
                 finish();
                 Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());

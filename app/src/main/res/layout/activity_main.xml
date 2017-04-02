@@ -5,13 +5,8 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_rowWeight="1"
-    android:background="@color/colorWhite"
-    android:orientation="vertical"
-    android:padding="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
-    tools:context="ml.alohomora.plantlocationandidentification.MainActivity">
+    tools:context="ml.alohomora.plantlocationandidentification.MainActivity"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -201,5 +196,4 @@
         app:itemIconTint="@color/colorMinGreen"
         app:itemTextColor="@color/colorMinGreen"
         />
-
 </LinearLayout>
