@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:background="@color/colorWhite">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_height="wrap_content"
             android:text="Name : "
             android:textColor="@android:color/background_dark"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewSrchResListItmMatchSec"
@@ -26,15 +27,17 @@
             android:singleLine="false"
             android:text="Matches attribute : "
             android:textColor="@android:color/background_dark"
-            android:textSize="24sp" />
+            android:textSize="18sp" />
 
     </LinearLayout>
 
     <Button
         android:id="@+id/buttonSrchResListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_margin="7dp"
+        android:background="@drawable/buttonshapemenu"
         android:text="View" />
     <!--android:singleLine Kept for better readability-->
 

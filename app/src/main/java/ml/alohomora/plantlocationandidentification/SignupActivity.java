@@ -1,5 +1,6 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -20,6 +21,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class SignupActivity extends AppCompatActivity {
 
     EditText signupemail, signuppassword;
@@ -29,6 +32,12 @@ public class SignupActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabaseSync;
     DatabaseReference databaseReferenceSync;
     CheckBox tocheckpriviledgeuser;
+
+    //calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

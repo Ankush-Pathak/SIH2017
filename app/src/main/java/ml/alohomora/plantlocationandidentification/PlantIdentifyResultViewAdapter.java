@@ -1,7 +1,9 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.ContextWrapper;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +15,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
 /**
  * Created by Chandan Singh on 29-Mar-17.
  */
+
+
+
+
+
 public class PlantIdentifyResultViewAdapter extends ArrayAdapter<Plant> {
     Context context;
     ArrayList<Plant> arrayListPlant;

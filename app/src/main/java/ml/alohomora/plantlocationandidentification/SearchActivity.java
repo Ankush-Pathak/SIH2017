@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -36,6 +37,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class SearchActivity extends AppCompatActivity{
     EditText editTextSrchTxtSrch;
     FirebaseDatabase firebaseDatabaseRetrieveAllData;
@@ -47,6 +50,13 @@ public class SearchActivity extends AppCompatActivity{
     ListView listViewSrchRes;
     Plant plantSelectedToView;
     ArrayList<String> iD;
+
+    //calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     tools:context="ml.alohomora.plantlocationandidentification.SearchActivity">
 
     <EditText
@@ -13,14 +14,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:ems="10"
+        android:gravity="center_horizontal"
         android:hint="Search with anything"
-        android:inputType="textAutoComplete" />
+        android:inputType="textAutoComplete"
+        android:textColorHint="@color/colorMinGreen"
+        android:textColorLink="@color/colorMinGreen" />
 
     <Button
         android:id="@+id/buttonSearchImageSrch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/buttonshapemenu"
         android:text="Search with Image" />
 
     <ListView

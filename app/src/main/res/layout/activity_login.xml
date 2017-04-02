@@ -37,6 +37,7 @@
             android:inputType="textPersonName"
             android:padding="10dp"
             android:textColor="@color/colorWhite"
+            android:textColorLink="@color/colorWhite"
             tools:layout_editor_absoluteX="81dp"
             tools:layout_editor_absoluteY="52dp" />
 
@@ -50,8 +51,9 @@
             android:hint="password"
             android:inputType="textPersonName"
             android:padding="10dp"
-            android:textColor="@color/colorWhite"
             android:paddingTop="10dp"
+            android:textColor="@color/colorWhite"
+            android:textColorLink="@color/colorWhite"
             tools:layout_editor_absoluteX="85dp"
             tools:layout_editor_absoluteY="123dp" />
 
