@@ -55,6 +55,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapView;
         ImageView imageView;
         imageView = (ImageView)findViewById(R.id.imageViewDialogShwPlantImage);
+        Glide.with(ShowPlantActivity.this).load(plantSelectedToView.getImageLeafRef().get(0)).into(imageView);
         textViewDialogBioName = (TextView) findViewById(R.id.textViewDialogShwPlantBioName);
         textViewDialogLeafSize = (TextView) findViewById(R.id.textViewDialogShwLeafSize);
         textViewDialogCommonName = (TextView) findViewById(R.id.textViewDialogShwPlantCommonName);
@@ -99,7 +100,7 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         mapView.getMapAsync(ShowPlantActivity.this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference().child("plant");
-        Glide.with(ShowPlantActivity.this).load(plantSelectedToView.getImageLeafRef().get(0)).into(imageView);
+
         buttonAddLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,6 +165,14 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
             googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,zoomLevel));
         }
 
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(ShowPlantActivity.this , MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 
 }
