@@ -7,14 +7,28 @@
     android:orientation="vertical"
     tools:context="ml.alohomora.plantlocationandidentification.SearchActivity">
 
-    <EditText
-        android:id="@+id/editTextSearchTextSrch"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
-        android:ems="10"
-        android:hint="Search with anything"
-        android:inputType="textAutoComplete" />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextSearchTextSrch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="Search with anything"
+            android:inputType="textAutoComplete" />
+
+        <Button
+            android:id="@+id/buttonSrchDispImg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="5"
+            android:text="C" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/buttonSearchImageSrch"

@@ -220,6 +220,8 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 Toast.makeText(AddToDatabaseActivity.this,"Success!",Toast.LENGTH_LONG).show();
                 progress.dismiss();
                 databaseReferenceUploadData.push().setValue(plant);
+                Intent intent = new Intent(AddToDatabaseActivity.this,MainActivity.class);
+                startActivity(intent);
                 finish();
                 Log.d("AddtoDatabase","Ref : " + ref + " List : " + list.toString());
             }

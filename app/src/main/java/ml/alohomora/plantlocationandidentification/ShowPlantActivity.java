@@ -166,5 +166,13 @@ public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCal
         }
 
     }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(ShowPlantActivity.this , MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,7 +60,7 @@ public class SearchActivity extends AppCompatActivity{
     Plant plantSelectedToView;
     Bitmap imageBitmap = null;
     boolean imageSearch = false;
-    Button buttonSrchImageSrch;
+    Button buttonSrchImageSrch,buttonImageView;
 
     ArrayList<String> iD;
 
@@ -104,11 +105,13 @@ public class SearchActivity extends AppCompatActivity{
         super.onBackPressed();
         Intent intent = new Intent(SearchActivity.this , MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     void setUpObjects()
     {
         editTextSrchTxtSrch = (EditText)findViewById(R.id.editTextSearchTextSrch);
+        buttonImageView = (Button) findViewById(R.id.buttonSrchDispImg);
         buttonSrchImageSrch = (Button) findViewById(R.id.buttonSearchImageSrch);
         firebaseDatabaseRetrieveAllData = FirebaseDatabase.getInstance();
         databaseReferenceRetrieveAllData = firebaseDatabaseRetrieveAllData.getReference().child("plant");
@@ -149,6 +152,24 @@ public class SearchActivity extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 imageBasedSearch();
+            }
+        });
+        buttonImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Dialog dialog = new Dialog(SearchActivity.this,android.R.style.Theme_Holo_Light_Dialog);
+                dialog.setTitle("Captured image");
+                dialog.setContentView(R.layout.dialog_image_view);
+                ImageView imageView = (ImageView) dialog.findViewById(R.id.imageViewDialogDispImg);
+                Button button = (Button) dialog.findViewById(R.id.buttonDialogDispImgOk);
+                imageView.setImageBitmap(imageBitmap);
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.show();
             }
         });
 

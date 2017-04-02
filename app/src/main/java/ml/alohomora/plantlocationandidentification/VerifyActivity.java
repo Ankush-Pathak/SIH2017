@@ -992,7 +992,16 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
 
     public void cancelChanges()
     {
-
+        Intent intent = new Intent(VerifyActivity.this , MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(VerifyActivity.this , MainActivity.class);
+        startActivity(intent);
         finish();
     }
 }
