@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.v4.app.FragmentActivity;
@@ -45,11 +46,20 @@ public class SearchActivity extends AppCompatActivity{
     SearchResultListViewAdapter searchResultListViewAdapter;
     ListView listViewSrchRes;
     Plant plantSelectedToView;
+    ArrayList<String> iD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         setUpObjects();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(SearchActivity.this , MainActivity.class);
+        startActivity(intent);
     }
 
     void setUpObjects()
@@ -60,6 +70,7 @@ public class SearchActivity extends AppCompatActivity{
         listViewSrchRes = (ListView)findViewById(R.id.listViewSearchSrchResults);
         arrayListPlantFromDb = new ArrayList<>();
         matchingSectionsWithSearch = new ArrayList<>();
+        iD = new ArrayList<>();
         editTextSrchTxtSrch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -78,7 +89,8 @@ public class SearchActivity extends AppCompatActivity{
                 if (count == 0)
                 {
                     arrayListPlantFromDb.clear();
-                    searchResultListViewAdapter = new SearchResultListViewAdapter(searchString,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch);
+                    iD.clear();
+                    searchResultListViewAdapter = new SearchResultListViewAdapter(searchString,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD);
                     listViewSrchRes.setAdapter(searchResultListViewAdapter);
                 }
             }
@@ -93,6 +105,7 @@ public class SearchActivity extends AppCompatActivity{
     void retrieveFbData(String st)
     {
         arrayListPlantFromDb.clear();
+        iD.clear();
         final String str = st;
         databaseReferenceRetrieveAllData.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -105,7 +118,7 @@ public class SearchActivity extends AppCompatActivity{
                     {
                         arrayListPlantFromDb.add(plant);
                         Log.d("Search","Arraylist size : " + arrayListPlantFromDb.size() + " content " + arrayListPlantFromDb.toString());
-
+                        iD.add(ds.getKey());
                     }
                 }
                 updateArrayAdapter(searchString);
@@ -124,7 +137,7 @@ public class SearchActivity extends AppCompatActivity{
     void updateArrayAdapter(String s)
     {
         Log.d("Search","Now setting adapeter, matchingsection size : " + matchingSectionsWithSearch.size()  + " with values " + matchingSectionsWithSearch.toString());
-        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch);
+        searchResultListViewAdapter = new SearchResultListViewAdapter(s,SearchActivity.this,arrayListPlantFromDb,matchingSectionsWithSearch,iD);
         listViewSrchRes.setAdapter(searchResultListViewAdapter);
         Log.d("Search","Array Adapter set");
 

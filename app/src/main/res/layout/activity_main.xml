@@ -5,82 +5,192 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ml.alohomora.plantlocationandidentification.MainActivity"
-    android:orientation="vertical">
+    android:layout_rowWeight="1"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    android:padding="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    tools:context="ml.alohomora.plantlocationandidentification.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:background="@color/colorMinGreen">
 
         <ImageView
             android:id="@+id/imageviewMenuprofilepicture"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="119dp"
+            android:layout_height="110dp"
             android:layout_gravity="left"
-            app:srcCompat="@drawable/imghomeprofilepicture" />
+            android:elevation="0dp"
+            android:padding="8dp"
+            android:paddingBottom="5dp"
+            android:paddingEnd="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:paddingStart="5dp"
+            android:paddingTop="10dp"
+            app:srcCompat="@drawable/imghomeaddplant" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/textviewMenuUsername"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:gravity="center_vertical"
+                android:paddingBottom="3dp"
+                android:paddingTop="9dp"
                 android:text="Sushruta"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="30sp"
-                android:textStyle="bold" />
+                android:textSize="35sp" />
 
             <TextView
                 android:id="@+id/textViewMenuUserTagline"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="3dp"
                 android:text="Novice"
                 android:textAlignment="center"
                 android:textColor="@android:color/white"
-                android:textSize="20sp"
+                android:textSize="13sp"
                 android:textStyle="italic" />
+
+            <Button
+                android:id="@+id/buttonMenuViewProfile"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/buttonshape"
+                android:paddingTop="2dp"
+                android:text="View your Profile" />
+
         </LinearLayout>
     </LinearLayout>
 
-    <Button
-        android:text="Identify a plant"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuIdentifyPlnt" />
+        android:layout_weight="0"
+        android:orientation="vertical">
 
-    <Button
-        android:text="Search"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuSearchPlnt" />
+        <TextView
+            android:id="@+id/textViewMenuLevelNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:background="@color/colorMinGreen"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="Level 2"
+            android:textColor="@color/colorWhite"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:text="Geotag a found plant"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuGeotag" />
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:max="100"
+            android:padding="5dp"
+            android:progress="50"
+            android:progressDrawable="@drawable/progressbar" />
 
-    <Button
-        android:text="Show nearby plants"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuShowNearbyPlants" />
+        <TextView
+            android:id="@+id/textViewMenuXP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:background="@color/colorMinGreen"
+            android:gravity="center_horizontal"
+            android:padding="5dp"
+            android:text="13/180 XP"
+            android:textColor="@color/colorWhite"
+            android:textSize="18sp" />
 
-    <Button
-        android:text="Add a new plant to database"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuAddNewPlntTDb" />
+    </LinearLayout>
 
-    <Button
-        android:text="Verify submitted entries"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/buttonMenuVerifyEntries" />
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="1dp">
+
+            <Button
+                android:id="@+id/buttonMenuSearchPlnt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Search"
+                android:background="@drawable/buttonshapemenu"
+                android:layout_margin="4dp"/>
+
+            <Button
+                android:id="@+id/buttonMenuAddNewPlntTDb"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Add a new plant to database"
+                android:background="@drawable/buttonshapemenu"
+                android:layout_margin="4dp"/>
+
+            <Button
+                android:id="@+id/buttonMenuVerifyEntries"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Verify submitted entries"
+                android:background="@drawable/buttonshapemenu"
+                android:layout_margin="4dp"/>
+
+            <Button
+                android:id="@+id/buttonMenuShowNearbyPlants"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Show nearby plants"
+                android:background="@drawable/buttonshapemenu"
+                />
+
+            <Button
+                android:id="@+id/buttonMenuIdentifyPlnt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Identify a plant"
+                android:background="@drawable/buttonshapemenu"
+                />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="0.25"
+        android:background="@color/colorWhite"
+        app:menu="@menu/bottomnavigation"
+        app:itemIconTint="@color/colorMinGreen"
+        app:itemTextColor="@color/colorMinGreen"
+        />
+
 </LinearLayout>

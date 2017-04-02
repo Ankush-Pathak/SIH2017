@@ -52,6 +52,16 @@ public class AddToDatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_database);
         setUpObjects();
     }
+
+    @Override
+    public void onBackPressed()
+    {
+       super.onBackPressed();
+        Intent intent = new Intent(AddToDatabaseActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
+
     void setUpObjects()
     {
         firebaseDatabaseUploadData = FirebaseDatabase.getInstance();
@@ -92,6 +102,7 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                         Log.d("File","Uri : " + uri.toString());
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+                    takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                     if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
                         startActivityForResult(takePictureIntent, 100);
                         imagePath = file2.getPath();
@@ -224,5 +235,11 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+
     }
+
+
+
+
 }

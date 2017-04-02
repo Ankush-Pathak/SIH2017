@@ -1,15 +1,10 @@
 package ml.alohomora.plantlocationandidentification;
 
-import android.content.Context;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
@@ -39,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     TrackGPS gps;
@@ -80,6 +75,16 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
             }
         });
+    }
+
+
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(PlotPlantsSpottedNearby.this , MainActivity.class);
+        startActivity(intent);
     }
 
 
@@ -130,6 +135,7 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         if(gps.canGetLocation)
              {
 
+                 mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 
                 LatLng myLatLan = new LatLng(gps.getLatitude(), gps.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(myLatLan).icon(BitmapDescriptorFactory.fromBitmap(sM)).title("myLocation : " + myLatitude + ", " + myLongitude));
@@ -163,6 +169,8 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
                     // Add a marker in Sydney and move the camera
                     if(gps.canGetLocation() ){
 
+                        mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+
 
 
                         LatLng plantlocation = new LatLng(d,(double)p.getLocationLon().get(p.getLocationLat().indexOf(d)));
@@ -179,6 +187,18 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
 
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(plantlocation, zoomLevel));
+
+                        /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+
+                                String title = "Demo";
+                                plantMarker.setTitle(title);
+                                return true;
+                            }
+                        });*/
+
+
                         //Log.d("tag:", "Lat:" + latitudes[i] + ", lon:" + longitudes[i]);
                     }
 
@@ -195,11 +215,11 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
     private double distance(double myLatitude, double myLongitude, double latitude, double longitude) {
         double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(latitude-myLatitude);
-        double dLng = Math.toRadians(longitude-myLongitude);
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        double diffLat = Math.toRadians(latitude-myLatitude);
+        double diffLng = Math.toRadians(longitude-myLongitude);
+        double a = Math.sin(diffLat/2) * Math.sin(diffLat/2) +
                 Math.cos(Math.toRadians(myLatitude)) * Math.cos(Math.toRadians(latitude)) *
-                        Math.sin(dLng/2) * Math.sin(dLng/2);
+                        Math.sin(diffLng/2) * Math.sin(diffLng/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         float distance = (float) (earthRadius * c);
 
@@ -246,5 +266,14 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
         }
     }
 
+
+    @Override
+    public boolean onMarkerClick(Marker marker)
+
+    {
+
+
+        return true;
+    }
 }
 

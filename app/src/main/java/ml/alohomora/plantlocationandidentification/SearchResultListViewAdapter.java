@@ -24,7 +24,8 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
     LayoutInflater inflater;
     ArrayList<String> matchingSections;
     String searchString;
-    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections)
+    ArrayList<String> iD;
+    public SearchResultListViewAdapter(String searchString, Context context, ArrayList<Plant> arrayListPlant,ArrayList<String> matchingSections,ArrayList<String> iD)
     {
         super(context,0,arrayListPlant);
         this.context = context;
@@ -32,6 +33,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.matchingSections = new ArrayList<>();
         this.searchString = searchString;
+        this.iD = iD;
         Log.d("SearchAdapter","Adapter constructed");
     }
     @Override
@@ -39,7 +41,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
         return arrayListPlant.get(position);
     }
     @Override
-    public View getView(int position, View convertView, ViewGroup parent)
+    public View getView(final int position, View convertView, ViewGroup parent)
     {
         Log.d("SearchAdapter","Trying to get view");
         final Plant plant = getItem(position);
@@ -58,6 +60,7 @@ public class SearchResultListViewAdapter extends ArrayAdapter<Plant>{
             public void onClick(View v) {
                 Intent intent = new Intent(context,ShowPlantActivity.class);
                 intent.putExtra("plant",plant);
+                intent.putExtra("iD",iD.get(position));
                 context.startActivity(intent);
             }
         });

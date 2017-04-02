@@ -24,4 +24,11 @@ public class PlantIdentifyResultListActivity extends AppCompatActivity {
         PlantIdentifyResultViewAdapter mAdapter = new PlantIdentifyResultViewAdapter("",this,plant,new ArrayList<String>());
         listView.setAdapter(mAdapter);
     }
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(PlantIdentifyResultListActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
 }

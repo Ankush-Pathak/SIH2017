@@ -139,6 +139,16 @@
                     android:textSize="25sp" />
 
                 <RadioButton
+                    android:id="@+id/leafMarginSurrate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layoutDirection="rtl"
+                    android:text="Surrate"
+                    android:textAlignment="textStart"
+                    android:textSize="25sp" />
+
+                <RadioButton
                     android:id="@+id/leafMarginCrenate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -149,30 +159,12 @@
                     android:textSize="25sp" />
 
                 <RadioButton
-                    android:id="@+id/leafMarginSurrate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layoutDirection="rtl"
-                    android:text="Surrate"
-                    android:textAlignment="textStart"
-                    android:textSize="25sp" />
-                <RadioButton
                     android:id="@+id/leafMarginDentate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
                     android:layoutDirection="rtl"
                     android:text="Dentate"
-                    android:textAlignment="textStart"
-                    android:textSize="25sp" />
-                <RadioButton
-                    android:id="@+id/leafMarginCrenate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="start"
-                    android:layoutDirection="rtl"
-                    android:text="Crenate"
                     android:textAlignment="textStart"
                     android:textSize="25sp" />
                 <RadioButton
