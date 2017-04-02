@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 int item_id = item.getItemId();
                 switch (item_id) {
                     case R.id.navigationbutton_addaplant:
-                        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
+                        SharedPreferences settings = getSharedPreferences("logedinUser",MODE_PRIVATE);
                         Boolean language = settings.getBoolean("privilege", false);
                         if (language) {
                             Intent intent = new Intent(MainActivity.this, AddToDatabaseActivity.class);
@@ -271,9 +271,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         String username=email.substring(0,username_count);
-        int level=Integer.parseInt(sharedPreferences.getString("level",""));
+        int level=Integer.parseInt(sharedPreferences.getString("level","0"));
         Log.d("Level from SP",sharedPreferences.getString("level",""));
-        int score=Integer.parseInt(sharedPreferences.getString("score",""));
+        int score=Integer.parseInt(sharedPreferences.getString("score","0"));
         int maxscore;
         if(level==0){ maxscore=5;        }
         else        { maxscore=level*10; }

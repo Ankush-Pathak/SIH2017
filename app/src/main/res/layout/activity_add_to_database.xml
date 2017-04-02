@@ -30,7 +30,8 @@
                 android:id="@+id/buttonAddLeafImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Add leaf image" />
+                android:text="Add leaf image"
+                android:background="@drawable/buttonshapemenu"/>
 
             <EditText
                 android:id="@+id/editTextAddBioName"

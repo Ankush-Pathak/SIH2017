@@ -13,10 +13,10 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-    android:orientation="horizontal"
-    android:background="@color/colorWhite">
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -24,30 +24,14 @@
             android:layout_weight="0.3"
             android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textViewSrchResListItmName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Name : "
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp" />
             <TextView
                 android:id="@+id/textViewSrchResListItmName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Name : "
                 android:textColor="@android:color/background_dark"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/textViewSrchResListItmMatchSec"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:singleLine="false"
-            android:text="Matches attribute : "
-            android:textColor="@android:color/background_dark"
-            android:textSize="18sp" />
             <TextView
                 android:id="@+id/textViewSrchResListItmMatchSec"
                 android:layout_width="match_parent"
@@ -56,7 +40,7 @@
                 android:singleLine="false"
                 android:text="Matches attribute : "
                 android:textColor="@android:color/background_dark"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/textViewSrchResListItmDiff"
@@ -66,24 +50,20 @@
                 android:singleLine="false"
                 android:text="Diff : "
                 android:textColor="@android:color/background_dark"
-                android:textSize="24sp" />
+                android:textSize="18sp" />
 
         </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonSrchResListView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="7dp"
-        android:background="@drawable/buttonshapemenu"
-        android:text="View" />
         <Button
             android:id="@+id/buttonSrchResListView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="0.9"
+            android:layout_height="wrap_content"
+            android:layout_margin="7dp"
+            android:layout_weight="1"
+
+            android:background="@drawable/buttonshapemenu"
             android:text="View" />
+
     </LinearLayout>
 
     <!--android:singleLine Kept for better readability-->

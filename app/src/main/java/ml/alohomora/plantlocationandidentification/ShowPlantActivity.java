@@ -32,12 +32,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class ShowPlantActivity extends FragmentActivity implements OnMapReadyCallback {
     Plant plantSelectedToView;
     String iD;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     @Override
+
+    //Calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_plant);
