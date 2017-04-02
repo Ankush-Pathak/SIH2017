@@ -2,7 +2,6 @@ package ml.alohomora.plantlocationandidentification;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,6 +74,14 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
 
             }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(VerifyEntriesActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
             @Override
             public void onListItemClick ( int onListItemClickId){
 //        Toast toast = Toast.makeText(this,plant.get(onListItemClickId).getLeafColor(),Toast.LENGTH_SHORT);
@@ -84,7 +91,7 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                 Plant p = plant.get(onListItemClickId);
                 String id = idList.get(onListItemClickId);
                 intent.putExtra("plant", p);
-                intent.putExtra("id",id);
+                intent.putExtra("iD",id);
                 startActivity(intent);
                 finish();
             }

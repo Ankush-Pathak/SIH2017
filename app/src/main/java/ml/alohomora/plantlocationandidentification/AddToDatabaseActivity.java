@@ -52,6 +52,16 @@ public class AddToDatabaseActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_to_database);
         setUpObjects();
     }
+
+    @Override
+    public void onBackPressed()
+    {
+       super.onBackPressed();
+        Intent intent = new Intent(AddToDatabaseActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
+
     void setUpObjects()
     {
         firebaseDatabaseUploadData = FirebaseDatabase.getInstance();
@@ -225,5 +235,11 @@ public class AddToDatabaseActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+
     }
+
+
+
+
 }

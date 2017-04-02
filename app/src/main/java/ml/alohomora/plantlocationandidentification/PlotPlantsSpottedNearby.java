@@ -1,21 +1,14 @@
 package ml.alohomora.plantlocationandidentification;
 
-import android.content.Context;
-import android.content.DialogInterface;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,7 +34,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener {
+public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, GoogleMap.OnMarkerClickListener{
 
     private GoogleMap mMap;
     TrackGPS gps;
@@ -82,6 +75,16 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
             }
         });
+    }
+
+
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(PlotPlantsSpottedNearby.this , MainActivity.class);
+        startActivity(intent);
     }
 
 
@@ -184,6 +187,18 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
                         mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
 
                         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(plantlocation, zoomLevel));
+
+                        /*mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
+                            @Override
+                            public boolean onMarkerClick(Marker marker) {
+
+                                String title = "Demo";
+                                plantMarker.setTitle(title);
+                                return true;
+                            }
+                        });*/
+
+
                         //Log.d("tag:", "Lat:" + latitudes[i] + ", lon:" + longitudes[i]);
                     }
 
@@ -200,11 +215,11 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
     private double distance(double myLatitude, double myLongitude, double latitude, double longitude) {
         double earthRadius = 6371000; //meters
-        double dLat = Math.toRadians(latitude-myLatitude);
-        double dLng = Math.toRadians(longitude-myLongitude);
-        double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+        double diffLat = Math.toRadians(latitude-myLatitude);
+        double diffLng = Math.toRadians(longitude-myLongitude);
+        double a = Math.sin(diffLat/2) * Math.sin(diffLat/2) +
                 Math.cos(Math.toRadians(myLatitude)) * Math.cos(Math.toRadians(latitude)) *
-                        Math.sin(dLng/2) * Math.sin(dLng/2);
+                        Math.sin(diffLng/2) * Math.sin(diffLng/2);
         double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
         float distance = (float) (earthRadius * c);
 
@@ -253,65 +268,12 @@ public class PlotPlantsSpottedNearby extends FragmentActivity implements OnMapRe
 
 
     @Override
-    public boolean onMarkerClick(Marker marker) {
+    public boolean onMarkerClick(Marker marker)
 
-        if(marker.equals(plantMarker))
-        {
-            marker.getPosition();
-            String bioName="",fruitColor;
+    {
 
 
-
-            for(Plant p : arrayListPlant)
-            {
-                for(Double d : p.getLocationLat())
-                {
-
-
-
-
-                        // Add a marker in Sydney and move the camera
-                      /*  if(gps.canGetLocation() ){
-
-
-
-                            LatLng plantlocation = new LatLng(d,(double)p.getLocationLon().get(p.getLocationLat().indexOf(d)));
-                            //mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
-                            plantMarker = mMap.addMarker(new MarkerOptions().position(plantlocation).icon(BitmapDescriptorFactory.fromBitmap(sM)).title(p.getName()));
-                            */
-                            bioName = p.getName();
-
-                    p.getCommonNames();
-
-                    fruitColor = p.fruitColor;
-
-
-
-
-
-
-
-                          /*  float zoomLevel = 16.0f;
-
-
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(plantlocation));
-
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(plantlocation, zoomLevel));
-                            //Log.d("tag:", "Lat:" + latitudes[i] + ", lon:" + longitudes[i]);*/
-                        }
-
-
-                    }
-
-                }
-
-
-
-
-
-
-
-        return false;
+        return true;
     }
 }
 

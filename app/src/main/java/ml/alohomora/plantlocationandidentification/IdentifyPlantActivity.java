@@ -238,6 +238,16 @@ public class IdentifyPlantActivity extends AppCompatActivity {
         *   6.Color
         * */
     }
+
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(IdentifyPlantActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
+
     ArrayList<Plant> search(String userSearch,ArrayList<Plant> dataPlant,ArrayList<Plant> unmatchedPlant  ,LinkedList<String> attribute) {
         if(attribute.getLast().equals("shape")) {
             for (Plant p : dataPlant) {
