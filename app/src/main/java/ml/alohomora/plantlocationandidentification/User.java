@@ -12,22 +12,25 @@ public class User implements Serializable{
 
     int score;
     int level;
+    int maxscoreforlevel;
     String email;
     String password;
     Boolean isuserpriviledge;
     ArrayList contributto;
 
-    public User(int score, int level, String email, String password, Boolean isuserprivilegde,ArrayList contributedto ) {
+    public User(int score, int level, String email, String password, int maxscoreforlevel, Boolean isuserprivilegde,ArrayList contributedto ) {
         this.score = score;
         this.level = level;
         this.email = email;
         this.password = password;
+        this.maxscoreforlevel=maxscoreforlevel;
        this.isuserpriviledge=isuserprivilegde;
         this.contributto=new ArrayList();
     }
 
     public User() {
         score = level = 0;
+        maxscoreforlevel = 0;
         email = password = null;
         isuserpriviledge=false;
         contributto=new ArrayList();
@@ -59,6 +62,14 @@ public class User implements Serializable{
 
     public String getPassword() {
         return password;
+    }
+
+    public int getmaxScore()
+    {
+        if(level > 0) { maxscoreforlevel = level * 10; }
+        else          { maxscoreforlevel=5; }
+
+        return maxscoreforlevel;
     }
 
     public void setPassword(String password) {

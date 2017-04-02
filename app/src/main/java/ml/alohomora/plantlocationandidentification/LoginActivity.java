@@ -49,8 +49,13 @@ public class LoginActivity extends AppCompatActivity {
         userlist = new ArrayList<>();
         //firebase
 
+
+        //for directly logging into the previous session
         if(loginFlag && System.currentTimeMillis()-session<172800000 )
         {
+
+            //cant get user info on scores and levels to the next activity if this method is called.
+
             Intent intent = new Intent(LoginActivity.this,MainActivity.class);
             startActivity(intent);
             Toast.makeText(LoginActivity.this,"Welcome back,you've been directly logged in",Toast.LENGTH_SHORT).show();
@@ -60,6 +65,8 @@ public class LoginActivity extends AppCompatActivity {
         {
             Toast.makeText(LoginActivity.this,"session expired ,log in again",Toast.LENGTH_SHORT).show();
         }
+
+
         dr.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -104,6 +111,7 @@ public class LoginActivity extends AppCompatActivity {
                                     editor.putString("password", password);
                                     editor.putString("level",String.valueOf(user.getLevel()) );
                                     editor.putString("score", String.valueOf(user.getScore()));
+                                    editor.putString("maxscoreforlevel",String.valueOf(user.getmaxScore()));
                                     editor.putBoolean("loginFlag",loginFlag);
                                     editor.putLong("session",System.currentTimeMillis());
                                     editor.putBoolean("privilege",user.isuserpriviledge);

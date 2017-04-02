@@ -127,63 +127,22 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_margin="1dp">
 
-            <Button
-                android:id="@+id/buttonMenuSearchPlnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Search"
-                android:background="@drawable/buttonshapemenu"
-                android:layout_margin="4dp"/>
-
-            <Button
-                android:id="@+id/buttonMenuAddNewPlntTDb"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Add a new plant to database"
-                android:background="@drawable/buttonshapemenu"
-                android:layout_margin="4dp"/>
 
             <Button
                 android:id="@+id/buttonMenuVerifyEntries"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
                 android:text="Verify submitted entries"
                 android:background="@drawable/buttonshapemenu"
-                android:layout_margin="4dp"/>
+                android:layout_margin="10dp"/>
 
-            <Button
-                android:id="@+id/buttonMenuGeotag"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Geotag a found plant"
-                android:background="@drawable/buttonshapemenu"
-                android:layout_margin="4dp"/>
-
-            <Button
-                android:id="@+id/buttonMenuShowNearbyPlants"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Show nearby plants"
-                android:background="@drawable/buttonshapemenu"
-                />
-
-            <Button
-                android:id="@+id/buttonMenuIdentifyPlnt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:text="Identify a plant"
-                android:background="@drawable/buttonshapemenu"
-                />
 
         </LinearLayout>
     </ScrollView>
@@ -193,7 +152,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="0dp"
         android:layout_marginTop="5dp"
         android:layout_weight="0.25"
         android:background="@color/colorWhite"
