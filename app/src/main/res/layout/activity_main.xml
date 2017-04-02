@@ -8,9 +8,6 @@
     android:layout_rowWeight="1"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    android:padding="0dp"
-    android:paddingRight="0dp"
-    android:paddingTop="0dp"
     tools:context="ml.alohomora.plantlocationandidentification.MainActivity">
 
     <LinearLayout
@@ -138,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:gravity="center"
-                android:layout_gravity="center_vertical"
+                android:layout_gravity="bottom"
                 android:text="Verify submitted entries"
                 android:background="@drawable/buttonshapemenu"
                 android:layout_margin="10dp"/>
@@ -152,7 +149,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="0dp"
         android:layout_marginTop="5dp"
         android:layout_weight="0.25"
         android:background="@color/colorWhite"

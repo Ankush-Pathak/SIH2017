@@ -14,6 +14,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -54,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         setUpObjects();
         setupListenersAndIntents();
-
-        extractScoreFromSP(); //this method calls setupLevelsAndPointsForUser(String, int, int, int)
+        extractScoreFromSP();
+        //extractScoreFromSP(); //this method calls setupLevelsAndPointsForUser(String, int, int, int)
     }
 
 
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
        // BottomNavigationItemView buttonMenuSearchPlnt = (BottomNavigationItemView)findViewById(R.id.navigationbutton_searchforaplant);
 
         //buttonAddToDatabase = (Button) findViewById(R.id.navigationbutton_addaplant);
-        buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
+        //buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
         buttonMenuViewUserProfile=(Button)findViewById(R.id.buttonMenuViewProfile);
 
         textviewMenuDisplayUsername=(TextView)findViewById(R.id.textviewMenuUsername);
@@ -92,40 +93,38 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
     }
 
-    void setupListenersAndIntents()
-    {
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener()
-        {
+    void setupListenersAndIntents() {
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                int item_id=item.getItemId();
-                switch (item_id)
-                {
+                int item_id = item.getItemId();
+                switch (item_id) {
                     case R.id.navigationbutton_addaplant:
                         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-                        Boolean language = settings.getBoolean("privilege",false);
-                        if(language)
-                        {
-                            Intent intent = new Intent(MainActivity.this,AddToDatabaseActivity.class);
+                        Boolean language = settings.getBoolean("privilege", false);
+                        if (language) {
+                            Intent intent = new Intent(MainActivity.this, AddToDatabaseActivity.class);
                             startActivity(intent);
                             finish();
-                        }
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getApplicationContext(), "you are not a privileged user", Toast.LENGTH_SHORT).show();
                         }
                         break;
 
 
                     case R.id.navigationbutton_searchforaplant:
-                        Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                        Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                         startActivity(intent);
                         finish();
                         break;
 
+                    case R.id.navigationbutton_plantsnearby:
+                        plants_nearby();
+                        break;
+
 
                 }
-                return false;
+                return true;
             }
         });
 
@@ -175,16 +174,17 @@ public class MainActivity extends AppCompatActivity {
         buttonMenuVerifyEntries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
+                Intent intent = new Intent(MainActivity.this, VerifyEntriesActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
+    }
 
 
 
 
-        buttonMenuPlotPlantsSpottedNearby.setOnClickListener(new View.OnClickListener() {
+       /* buttonMenuPlotPlantsSpottedNearby.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -225,8 +225,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-    }
+    }*/
 
+    private void plants_nearby() {
+        gps = new TrackGPS(getApplicationContext());
+
+        NetworkInfo info = (NetworkInfo) ((ConnectivityManager)
+                getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE)).getActiveNetworkInfo();
+
+        //To display my location
+
+        if(info == null)
+        {
+            Toast.makeText(getApplicationContext(),"Internet Unavailable",Toast.LENGTH_LONG).show();
+
+        }
+
+        else {
+            if(gps.canGetLocation) {
+
+                Intent intent = new Intent(MainActivity.this, PlotPlantsSpottedNearby.class);
+                startActivity(intent);
+                finish();
+            }
+            else
+            {
+                Toast.makeText(getApplicationContext(),"Please enable location and restart app",Toast.LENGTH_LONG).show();
+            }
+        }
+    }
 
     private void extractScoreFromSP() {
 
@@ -245,8 +272,11 @@ public class MainActivity extends AppCompatActivity {
 
         String username=email.substring(0,username_count);
         int level=Integer.parseInt(sharedPreferences.getString("level",""));
+        Log.d("Level from SP",sharedPreferences.getString("level",""));
         int score=Integer.parseInt(sharedPreferences.getString("score",""));
-        int maxscore=Integer.parseInt(sharedPreferences.getString("maxscoreforlevel",""));
+        int maxscore;
+        if(level==0){ maxscore=5;        }
+        else        { maxscore=level*10; }
         setupLevelsAndPointsForUser(username,level,score,maxscore);
 
 
@@ -258,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
 
         progressBarMenuLevelNum.setMax(maxscore);
         progressBarMenuLevelNum.setProgress(score);
-        textviewMenuUserScore.setText(score+" XP");
+        textviewMenuUserScore.setText(score+"/"+" XP");
         textviewMenuUserLevelNum.setText("Level "+level);
 
 

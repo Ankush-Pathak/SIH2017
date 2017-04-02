@@ -1,6 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -48,6 +49,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
 public class SearchActivity extends AppCompatActivity{
     EditText editTextSrchTxtSrch;
     FirebaseDatabase firebaseDatabaseRetrieveAllData;
@@ -90,6 +93,13 @@ public class SearchActivity extends AppCompatActivity{
 
 
 
+
+
+
+    //calligraphy additions
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 
     @Override
