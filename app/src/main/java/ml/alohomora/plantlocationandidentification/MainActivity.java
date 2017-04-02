@@ -145,17 +145,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
-                Boolean privilege = settings.getBoolean("privilege",false);
-                if(privilege)
+               // SharedPreferences settings = getApplicationContext().getSharedPreferences("logedinUser", MODE_PRIVATE);
+              //  Boolean privilege = settings.getBoolean("privilege",false);
+                //if(privilege)
                 {
                     Intent intent = new Intent(MainActivity.this,VerifyEntriesActivity.class);
                     startActivity(intent);
                     finish();
                 }
-                else
+              //  else
                 {
-                    Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
+              //      Toast.makeText(getApplicationContext(),"you are not a privilege user",Toast.LENGTH_SHORT).show();
                 }
 
 

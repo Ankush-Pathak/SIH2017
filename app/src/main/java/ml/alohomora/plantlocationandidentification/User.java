@@ -1,5 +1,7 @@
 package ml.alohomora.plantlocationandidentification;
 
+import android.content.SharedPreferences;
+
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.ArrayList;
  * Created by Ankush on 3/29/2017.
  */
 
-public class User implements Serializable {
+public class  User implements Serializable {
 
     int score;
     int level;
@@ -64,6 +66,8 @@ public class User implements Serializable {
     public void setContributTo(ArrayList<String> contributTo) {
         this.contributTo = contributTo;
     }
+
+
 
     public User() {
         this.score = -1;
