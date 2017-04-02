@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
        // BottomNavigationItemView buttonMenuSearchPlnt = (BottomNavigationItemView)findViewById(R.id.navigationbutton_searchforaplant);
 
         //buttonAddToDatabase = (Button) findViewById(R.id.navigationbutton_addaplant);
-        buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
+      //  buttonMenuPlotPlantsSpottedNearby = (Button)findViewById(R.id.buttonMenuShowNearbyPlants);
         buttonMenuViewUserProfile=(Button)findViewById(R.id.buttonMenuViewProfile);
 
         textviewMenuDisplayUsername=(TextView)findViewById(R.id.textviewMenuUsername);
