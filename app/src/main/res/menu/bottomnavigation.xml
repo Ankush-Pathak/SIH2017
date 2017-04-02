@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigationbutton_addaplant"
         android:icon="@drawable/imghomeaddplant"
         android:title="Add a Plant"
         />
 
     <item
-        android:id="@+id/navigation_dashboard"
-        android:icon="@drawable/imghomeidentifyplant"
-        android:title="Identify a Plant" />
+        android:id="@+id/navigationbutton_identifyaplant"
+        android:icon="@drawable/imghomeplantsnearby"
+        android:title="Plants nearby" />
 
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigationbutton_searchforaplant"
         android:icon="@drawable/imghomesearch"
         android:title="Search a Plant"
         />
