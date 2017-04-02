@@ -41,6 +41,7 @@ public class SignupActivity extends AppCompatActivity {
         toLoginActivity = (Button) findViewById(R.id.buttonSignupMovetoLoginActivity);
         tocheckpriviledgeuser=(CheckBox)findViewById(R.id.checkBoxtocheckpriviledgeuser);
         fb = FirebaseDatabase.getInstance();
+        //User user = new User(0,0,"a@a.aa","123456",true,null);
 
         Log.d("Firebase","Hopefully added to database");
 

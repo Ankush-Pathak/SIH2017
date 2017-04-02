@@ -40,7 +40,7 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                     idList.add(ds.getKey());
                 }
                 for (int i = 0; i < plant.size(); i++) {
-                    if (plant.get(i).isFullyVerfied()) {
+                    if (plant.get(i).isFullyVerfied() || plant.get(i).getRejectionCount()>=5) {
                         plant.remove(i);
                         idList.remove(i);
                     }
@@ -72,6 +72,14 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
 
             }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(VerifyEntriesActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
             @Override
             public void onListItemClick ( int onListItemClickId){
 //        Toast toast = Toast.makeText(this,plant.get(onListItemClickId).getLeafColor(),Toast.LENGTH_SHORT);
@@ -81,7 +89,8 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                 Plant p = plant.get(onListItemClickId);
                 String id = idList.get(onListItemClickId);
                 intent.putExtra("plant", p);
-                intent.putExtra("id",id);
+                intent.putExtra("iD",id);
                 startActivity(intent);
+                finish();
             }
 }
