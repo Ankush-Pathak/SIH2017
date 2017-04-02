@@ -114,7 +114,7 @@ public class TrackGPS extends Service implements LocationListener {
 
             // if GPS Enabled get lat/long using GPS Services
             if (checkGPS ) {
-                Toast.makeText(mContext, " Network & GPS ON", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, " Network & GPS ON", Toast.LENGTH_SHORT).show();
                 if (loc == null) {
                     try {
                         locationManager.requestLocationUpdates(
@@ -186,7 +186,7 @@ public class TrackGPS extends Service implements LocationListener {
         getLocation();
         Log.d("Success: ","OnLocationChanged() Called" );
 
-        Toast.makeText(mContext,"OnLocationChanged() Called",Toast.LENGTH_SHORT).show();
+        //Toast.makeText(mContext,"OnLocationChanged() Called",Toast.LENGTH_SHORT).show();
     }
 
     @Override

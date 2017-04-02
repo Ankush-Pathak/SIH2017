@@ -98,6 +98,14 @@ public class SearchActivity extends AppCompatActivity{
         setUpObjects();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        super.onBackPressed();
+        Intent intent = new Intent(SearchActivity.this , MainActivity.class);
+        startActivity(intent);
+    }
+
     void setUpObjects()
     {
         editTextSrchTxtSrch = (EditText)findViewById(R.id.editTextSearchTextSrch);
