@@ -26,23 +26,15 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
     ArrayList<Plant> plant;
     ArrayList<String> idList;
     SharedPreferences sharedPreferences;
-    Context context;
-    User user;
-    String mailID;
-
-
-
+    String userId;
     void setup() {
         plant = new ArrayList<>();
         idList = new ArrayList<>();
-        user = new User();
+        sharedPreferences = this.getSharedPreferences("logedinUser", MODE_PRIVATE);
+        userId = sharedPreferences.getString("email","");
         firebaseDatabaseSync = FirebaseDatabase.getInstance();
         databaseReferencePlant = firebaseDatabaseSync.getReference().child("plant");
         databaseReferenceId = firebaseDatabaseSync.getReference();
-
-        /*SharedPreferences settings = getSharedPreferences("logedinUser",MODE_PRIVATE);
-        mailID = settings.getString("email",null);*/
-
         databaseReferencePlant.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -50,10 +42,8 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                     plant.add(ds.getValue(Plant.class));
                     idList.add(ds.getKey());
                 }
-                for (int i = 0; i < plant.size(); i++)
-                {
-                    if (plant.get(i).isFullyVerfied() || plant.get(i).getRejectionCount()>=5 )
-                    {
+                for (int i = 0; i < plant.size(); i++) {
+                    if (plant.get(i).isFullyVerfied()||plant.get(i).getUploaderId().equals(userId)||plant.get(i).getNameVerificationCount()>=5) {
                         plant.remove(i);
                         idList.remove(i);
                     }
@@ -67,8 +57,6 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                 mNumberList.setAdapter(verifyListAdapter);
                 Log.d("debug","plant :"+plant.size());
             }
-
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {

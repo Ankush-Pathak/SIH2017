@@ -106,7 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                             if(flag == false)
                             {
 
-                                User user = new User(0,0,email,password,tocheckpriviledgeuser.isChecked(),new ArrayList());
+                                User user = new User(0,0,email,password,5,tocheckpriviledgeuser.isChecked(),new ArrayList());
                                 dr.push().setValue(user);
                                 Toast.makeText(getApplicationContext(), "sign in successful", Toast.LENGTH_SHORT).show();
                                 //next activity
