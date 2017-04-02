@@ -40,7 +40,7 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                     idList.add(ds.getKey());
                 }
                 for (int i = 0; i < plant.size(); i++) {
-                    if (plant.get(i).isFullyVerfied()) {
+                    if (plant.get(i).isFullyVerfied() || plant.get(i).getRejectionCount()>=5) {
                         plant.remove(i);
                         idList.remove(i);
                     }
@@ -81,7 +81,8 @@ public class VerifyEntriesActivity extends AppCompatActivity implements VerifyEn
                 Plant p = plant.get(onListItemClickId);
                 String id = idList.get(onListItemClickId);
                 intent.putExtra("plant", p);
-                intent.putExtra("id",id);
+                intent.putExtra("iD",id);
                 startActivity(intent);
+                finish();
             }
 }

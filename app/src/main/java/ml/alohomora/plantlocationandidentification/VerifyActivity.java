@@ -1,10 +1,12 @@
 package ml.alohomora.plantlocationandidentification;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -13,9 +15,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.StreamDownloadTask;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,34 +29,41 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
 
 
     private View view;
-    private VerifyActivity(View view)
+    public VerifyActivity()
+    {
+
+    }
+    public VerifyActivity(View view)
     {
         this.view = view;
     }
 
-    EditText editTextVerifyName = (EditText) findViewById(R.id.editTextVerifyName);
-    EditText editTextVerifyCommonName = (EditText) findViewById(R.id.editTextVerifyCommonName);
-    EditText editTextVerifyFruitBearing = (EditText) findViewById(R.id.editTextVerifyFruitBearing);
+    EditText editTextVerifyName;
+    EditText editTextVerifyCommonName;
+    EditText editTextVerifyFruitBearing;
+    EditText editTextVerifyComments;
+    EditText editTextVerifyVerified;
+    EditText editTextVerifyNotVerified;
 
-    CheckBox checkBoxVerifyName = (CheckBox) findViewById(R.id.checkBoxVerifyName);
-    CheckBox checkBoxVerifyCommonName = (CheckBox) findViewById(R.id.checkBoxVerifyCommonName);
-    CheckBox checkBoxVerifyLeafColour = (CheckBox) findViewById(R.id.checkBoxVerifyLeafColour);
-    CheckBox checkBoxVerifyLeafSize = (CheckBox) findViewById(R.id.checkBoxVerifyLeafSize);
-    CheckBox checkBoxVerifyFruitBearing = (CheckBox) findViewById(R.id.checkBoxVerifyFruitBearing);
-    CheckBox checkBoxVerifyLeafTip = (CheckBox) findViewById(R.id.checkBoxVerifyLeafTip);
-    CheckBox checkBoxVerifyFruitColour = (CheckBox) findViewById(R.id.checkBoxVerifyFruititColour);
-    CheckBox checkBoxVerifyLeafBase = (CheckBox) findViewById(R.id.checkBoxVerifyLeafBase);
-    CheckBox checkBoxVerifyLeafShape = (CheckBox) findViewById(R.id.checkBoxVerifyLeafShape);
-    CheckBox checkBoxVerifyLeafMargins = (CheckBox) findViewById(R.id.checkBoxVerifyLeafMargins);
+    CheckBox checkBoxVerifyName;
+    CheckBox checkBoxVerifyCommonName;
+    CheckBox checkBoxVerifyLeafColour;
+    CheckBox checkBoxVerifyLeafSize;
+    CheckBox checkBoxVerifyFruitBearing;
+    CheckBox checkBoxVerifyLeafTip;
+    CheckBox checkBoxVerifyFruitColour;
+    CheckBox checkBoxVerifyLeafBase;
+    CheckBox checkBoxVerifyLeafShape;
+    CheckBox checkBoxVerifyLeafMargins;
 
 
-    Spinner spinnerVerifyLeafTip = (Spinner) findViewById(R.id.spinnerVerifyLeafTip);
-    Spinner spinnerVerifyLeafShape = (Spinner) findViewById(R.id.spinnerVerifyLeafShape);
-    Spinner spinnerVerifyLeafMargins = (Spinner) findViewById(R.id.spinnerVerifyLeafMargins);
-    Spinner spinnerVerifyLeafBase = (Spinner) findViewById(R.id.spinnerVerifyLeafBase);
-    Spinner spinnerVerifyFruitColour = (Spinner) findViewById(R.id.spinnerVerifyFruitColour);
-    Spinner spinnerVerifyLeafColour = (Spinner) findViewById(R.id.spinnerVerifyLeafColour);
-    Spinner spinnerVerifyLeafSize = (Spinner) findViewById(R.id.spinnerVerifyLeafSize);
+    Spinner spinnerVerifyLeafTip;
+    Spinner spinnerVerifyLeafShape;
+    Spinner spinnerVerifyLeafMargins;
+    Spinner spinnerVerifyLeafBase;
+    Spinner spinnerVerifyFruitColour;
+    Spinner spinnerVerifyLeafColour;
+    Spinner spinnerVerifyLeafSize;
 
     String iD;
     Plant plantObj;
@@ -79,14 +90,103 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
         }
         plantOriginalObj = plantObj;
 
-        ArrayAdapter<CharSequence> adapterLeafShape = ArrayAdapter.createFromResource(this, R.array.leaf_shape, android.R.layout.simple_spinner_dropdown_item);
+        editTextVerifyName = (EditText) findViewById(R.id.editTextVerifyName);
+        editTextVerifyCommonName = (EditText) findViewById(R.id.editTextVerifyCommonName);
+        editTextVerifyFruitBearing = (EditText) findViewById(R.id.editTextVerifyFruitBearing);
+        editTextVerifyComments = (EditText) findViewById(R.id.editTextVerifyComments);
+        editTextVerifyVerified = (EditText) findViewById(R.id.editTextVerifyVerified);
+        editTextVerifyNotVerified = (EditText) findViewById(R.id.editTextVerifyNotVerified);
+
+
+        editTextVerifyName.setText(plantObj.getName());
+        editTextVerifyCommonName.setText(convertListToString(plantObj.getCommonNames()));
+        editTextVerifyFruitBearing.setText(converBoolToString(plantObj.isFruitBearing()));
+        editTextVerifyComments.setText(plantObj.getComments());
+
+
+        editTextVerifyNotVerified.setClickable(false);
+        editTextVerifyNotVerified.setEnabled(false);
+        editTextVerifyNotVerified.setCursorVisible(false);
+
+        editTextVerifyVerified.setClickable(false);
+        editTextVerifyVerified.setEnabled(false);
+        editTextVerifyVerified.setCursorVisible(false);
+
+
+
+        checkBoxVerifyName = (CheckBox) findViewById(R.id.checkBoxVerifyName);
+        checkBoxVerifyCommonName = (CheckBox) findViewById(R.id.checkBoxVerifyCommonName);
+        checkBoxVerifyLeafColour = (CheckBox) findViewById(R.id.checkBoxVerifyLeafColour);
+        checkBoxVerifyLeafSize = (CheckBox) findViewById(R.id.checkBoxVerifyLeafSize);
+        checkBoxVerifyFruitBearing = (CheckBox) findViewById(R.id.checkBoxVerifyFruitBearing);
+        checkBoxVerifyLeafTip = (CheckBox) findViewById(R.id.checkBoxVerifyLeafTip);
+        checkBoxVerifyFruitColour = (CheckBox) findViewById(R.id.checkBoxVerifyFruititColour);
+        checkBoxVerifyLeafBase = (CheckBox) findViewById(R.id.checkBoxVerifyLeafBase);
+        checkBoxVerifyLeafShape = (CheckBox) findViewById(R.id.checkBoxVerifyLeafShape);
+        checkBoxVerifyLeafMargins = (CheckBox) findViewById(R.id.checkBoxVerifyLeafMargins);
+
+
+        spinnerVerifyLeafTip = (Spinner) findViewById(R.id.spinnerVerifyLeafTip);
+        spinnerVerifyLeafShape = (Spinner) findViewById(R.id.spinnerVerifyLeafShape);
+        spinnerVerifyLeafMargins = (Spinner) findViewById(R.id.spinnerVerifyLeafMargins);
+        spinnerVerifyLeafBase = (Spinner) findViewById(R.id.spinnerVerifyLeafBase);
+        spinnerVerifyFruitColour = (Spinner) findViewById(R.id.spinnerVerifyFruitColour);
+        spinnerVerifyLeafColour = (Spinner) findViewById(R.id.spinnerVerifyLeafColour);
+        spinnerVerifyLeafSize = (Spinner) findViewById(R.id.spinnerVerifyLeafSize);
+
+
+        spinnerVerifyLeafColour.setSelection(returnSpinnerPosition(spinnerVerifyLeafColour,plantObj.getLeafColor()));
+        spinnerVerifyLeafBase.setSelection(returnSpinnerPosition(spinnerVerifyLeafBase,plantObj.getLeafBase()));
+        spinnerVerifyLeafShape.setSelection(returnSpinnerPosition(spinnerVerifyLeafShape,plantObj.getFruitShape()));
+        spinnerVerifyLeafTip.setSelection(returnSpinnerPosition(spinnerVerifyLeafTip,plantObj.getLeafTip()));
+        spinnerVerifyLeafMargins.setSelection(returnSpinnerPosition(spinnerVerifyLeafMargins,plantObj.getLeafMargins()));
+        spinnerVerifyLeafSize.setSelection(returnSpinnerPosition(spinnerVerifyLeafSize,plantObj.getLeafSize()));
+       // spinnerVerifyFruitColour.setSelection(returnSpinnerPosition(spinnerVerifyFruitColour,plantObj.getFruitColor()));
+
+
+
+
+       /* ArrayAdapter<CharSequence> adapterLeafShape = ArrayAdapter.createFromResource(this, R.array.leaf_shape, android.R.layout.simple_spinner_dropdown_item);
         adapterLeafShape.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerVerifyLeafShape.setAdapter(adapterLeafShape);
+        spinnerVerifyLeafShape.setAdapter(adapterLeafShape);*/
+
+
+
+        checkVerificationCount(plantObj.getNameVerificationCount(),checkBoxVerifyName);
+        checkVerificationCount(plantObj.getCommonNameVerificationCount(),checkBoxVerifyCommonName);
+        checkVerificationCount(plantObj.getLeafBaseVerificationCount(),checkBoxVerifyLeafBase);
+        checkVerificationCount(plantObj.getFruitColorVerificationCount(),checkBoxVerifyFruitColour);
+        checkVerificationCount(plantObj.getLeafColorVerificationCount(),checkBoxVerifyLeafColour);
+        checkVerificationCount(plantObj.getLeafMarginsVerificationCount(),checkBoxVerifyLeafMargins);
+        checkVerificationCount(plantObj.getLeafShapeVerificationCount(),checkBoxVerifyLeafShape);
+        checkVerificationCount(plantObj.getLeafTipVerificationCount(),checkBoxVerifyLeafTip);
+        checkVerificationCount(plantObj.getLeafSizeVerificationCount(),checkBoxVerifyLeafSize);
+        checkVerificationCount(plantObj.getIsFruitBearingVerificationCount(),checkBoxVerifyFruitBearing);
+
+
+
+
+        checkVerificationCountEditText(plantObj.getNameVerificationCount(), editTextVerifyName);
+        checkVerificationCountEditText(plantObj.getCommonNameVerificationCount(), editTextVerifyCommonName);
+        checkVerificationCountEditText(plantObj.getIsFruitBearingVerificationCount(), editTextVerifyFruitBearing);
+
+
+
+        checkVerificationCountSpinner(plantObj.getLeafMarginsVerificationCount(), spinnerVerifyLeafMargins);
+        checkVerificationCountSpinner(plantObj.getLeafSizeVerificationCount(), spinnerVerifyLeafSize);
+        //checkVerificationCountSpinner(plantObj.getFruitColorVerificationCount(), spinnerVerifyFruitColour);
+        checkVerificationCountSpinner(plantObj.getLeafShapeVerificationCount(),spinnerVerifyLeafShape);
+        checkVerificationCountSpinner(plantObj.getLeafBaseVerificationCount(), spinnerVerifyLeafBase);
+        checkVerificationCountSpinner(plantObj.getLeafTipVerificationCount(), spinnerVerifyLeafTip);
+        checkVerificationCountSpinner(plantObj.getLeafColorVerificationCount(), spinnerVerifyLeafColour);
+
+
 
 
         editTextVerifyFruitBearing.addTextChangedListener(VerifyActivity.this);
         editTextVerifyName.addTextChangedListener(VerifyActivity.this);
         editTextVerifyCommonName.addTextChangedListener(VerifyActivity.this);
+        editTextVerifyComments.addTextChangedListener(VerifyActivity.this);
 
 
         /*spinnerVerifyLeafShape.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -120,6 +220,8 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
         checkBoxVerifyLeafShape.setOnClickListener(VerifyActivity.this);
         checkBoxVerifyLeafSize.setOnClickListener(VerifyActivity.this);
         checkBoxVerifyFruitColour.setOnClickListener(VerifyActivity.this);
+
+
 
         Button buttonVerifySubmitChanges = (Button) findViewById(R.id.buttonVerifySubmitChanges);
         buttonVerifySubmitChanges.setOnClickListener(new View.OnClickListener() {
@@ -239,7 +341,30 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
 
+                case R.id.editTextVerifyComments :
 
+                    String editTextVerifyCommentsText = editTextVerifyComments.getText().toString();
+                    String plantObjCommentsText = plantObj.getComments();
+
+                    if(editTextVerifyCommentsText == plantObjCommentsText)
+                    {
+
+                        plantObj.setCommentsVerficationCount(plantOriginalObj.getCommentsVerficationCount());
+
+                        if(plantObj.getCommentsVerficationCount() >= 3)
+                        {
+                            editTextVerifyComments.setEnabled(false);
+
+
+                        }
+                        break;
+                    }
+
+                    else
+                    {
+                        plantObj.setCommentsVerficationCount(0);
+                        plantObj.setComments(editTextVerifyCommentsText);
+                    }
 
             }
         }
@@ -306,6 +431,8 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
             }
 
             break;
+
+
 
             case R.id.checkBoxVerifyFruitBearing :
                 int fruitBearingVerificationCount = plantObj.getIsFruitBearingVerificationCount();
@@ -758,6 +885,91 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    String convertListToString(List<String> list)
+    {
+        String s = "";
+        if (list.size() > 0) {
+            s = list.get(0);
+
+            for(int i = 1;i < list.size();i++)
+            {
+                s = s + ", " + list.get(i);
+            }
+        }
+        return s;
+    }
+
+
+    void checkVerificationCount(int verificationCount, CheckBox checkBox)
+    {
+        if (verificationCount >= 3) {
+            checkBox.setChecked(true);
+            checkBox.setEnabled(false);
+            checkBox.setClickable(false);
+        }
+    }
+
+    void checkVerificationCountEditText(int verificationCount, EditText editText)
+    {
+        if(verificationCount >= 3)
+        {
+            editText.setEnabled(false);
+            editText.setCursorVisible(false);
+            editText.setTextColor(Color.GREEN);
+        }
+    }
+
+
+    void checkVerificationCountSpinner(int verificationCount, Spinner spinner)
+    {
+        if(verificationCount >= 3)
+        {
+            spinner.setEnabled(false);
+
+            Log.d(" Position" , String.valueOf(spinner.getFirstVisiblePosition()));
+
+            //Log.d("Item " , spinner.getChildAt(spinner.getSelectedItemPosition()).toString());
+            //((TextView) spinner.getChildAt(spinner.getSelectedItemPosition())).setTextColor(Color.GREEN);
+            //((TextView) spinner.getChildAt(spinner.getFirstVisiblePosition())).setTextColor(Color.GREEN);
+
+
+        }
+    }
+
+
+
+
+    String converBoolToString(Boolean bool)
+    {
+        String s = "";
+        if(bool)
+        {
+            s="Yes";
+        }
+        else
+        {
+            s="No";
+        }
+
+        return s;
+    }
+
+
+
+    int returnSpinnerPosition(Spinner spinner, String str)
+    {
+
+        ArrayAdapter myAdap = (ArrayAdapter) spinner.getAdapter();
+
+
+
+        int position = myAdap.getPosition(str);
+
+        return position;
+    }
+
+
+
 
 
 
@@ -772,6 +984,8 @@ public class VerifyActivity extends AppCompatActivity implements View.OnClickLis
     {
 
         databaseReference.child("plant").child(iD).setValue(plantObj);
+        Intent intent = new Intent(this, VerifyEntriesActivity.class);
+        startActivity(intent);
         finish();
     }
 
