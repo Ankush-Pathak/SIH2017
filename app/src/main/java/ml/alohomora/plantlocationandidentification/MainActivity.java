@@ -55,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
 
         setUpObjects();
         setupListenersAndIntents();
-
-        extractScoreFromSP(); //this method calls setupLevelsAndPointsForUser(String, int, int, int)
+        extractScoreFromSP();
+        //extractScoreFromSP(); //this method calls setupLevelsAndPointsForUser(String, int, int, int)
     }
 
 
